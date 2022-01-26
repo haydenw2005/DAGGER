@@ -1,2 +1,2 @@
 # DystopianAdventureGame
-Hayden, Casey, Brooke, and Jerry's game. 
+Jerry, Casey, Brooke, and Hayden's game.
