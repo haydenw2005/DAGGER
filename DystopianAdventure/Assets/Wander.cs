@@ -27,7 +27,7 @@ public class Wander : MonoBehaviour {
 
         if (elapsedTime < duration && move) {
             //if its moving and didn't move too much
-            Vector3 move = new Vector3(randomX,0,randomZ) * Time.deltaTime);
+            Vector3 move = new Vector3((randomX,0,randomZ) * Time.deltaTime);
             rb.transform.Translate(move);
             elapsedTime += Time.deltaTime;
 
