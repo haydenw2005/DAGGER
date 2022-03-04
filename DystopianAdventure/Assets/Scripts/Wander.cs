@@ -5,7 +5,7 @@ using UnityEngine;
 public class Wander : MonoBehaviour {
 
     public float duration;    //the max time of a walking session (set to ten)
-    private Rigidbody rb;
+    public Rigidbody rb;
     float elapsedTime   = 0f; //time since started walk
     float wait          = 0f; //wait this much time
     float waitTime      = 0f; //waited this much time
@@ -16,7 +16,7 @@ public class Wander : MonoBehaviour {
     bool move = true; //start moving
 
     void Start(){
-        rb = GetComponent<RigidBody>();
+        rb = GetComponent<Rigidbody>();
         randomX =  Random.Range(-3,3);
         randomZ = Random.Range(-3,3);
     }
@@ -27,8 +27,7 @@ public class Wander : MonoBehaviour {
 
         if (elapsedTime < duration && move) {
             //if its moving and didn't move too much
-            Vector3 move = new Vector3((randomX,0,randomZ) * Time.deltaTime);
-            rb.transform.Translate(move);
+            rb.transform.Translate(new Vector3(randomX,0,randomZ) * Time.deltaTime);
             elapsedTime += Time.deltaTime;
 
         } else if(wait == 0f) {
