@@ -38,13 +38,13 @@ public class Wander : MonoBehaviour {
         }
 
         if (waitTime < wait && !move) {
-            Debug.Log(wait);
+            //Debug.Log(wait);
             //you are waiting
             waitTime += Time.deltaTime;
 
         } else if(!move) {
             //you're done waiting
-            Debug.Log("bye");
+            //Debug.Log("bye");
             move = true;
             elapsedTime = 0f;
             wait = 0f;
