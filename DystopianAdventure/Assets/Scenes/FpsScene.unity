@@ -2112,11 +2112,10 @@ RectTransform:
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1763430239
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 8555449839239497543, guid: a85804dfacd07e44cb609a525afad3de, type: 3}
+  m_PrefabInstance: {fileID: 8555449838820444184}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1763430237}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 626073944ec19d342b0262060b42bf62, type: 3}
