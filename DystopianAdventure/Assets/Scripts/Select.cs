@@ -29,7 +29,6 @@ public class Select : MonoBehaviour
 
     void HitByRay()
     {
-      Debug.Log("Hit");
       rayHit = true;
     }
 }
