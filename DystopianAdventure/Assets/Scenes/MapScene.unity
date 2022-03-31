@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.43667564, g: 0.48427135, b: 0.5645232, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -170,8 +170,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 0.14524567, b: 0, a: 1}
   m_RaycastTarget: 1
@@ -229,8 +229,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 08599c5f7edb57140aa70f24c3c97616, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
 --- !u!65 &105129010
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -470,7 +470,7 @@ Terrain:
   m_TerrainData: {fileID: 15600000, guid: 58138c6adfd7b9e4e85b8d17650c74e4, type: 2}
   m_TreeDistance: 5000
   m_TreeBillboardDistance: 50
-  m_TreeCrossFadeLength: 5
+  m_TreeCrossFadeLength: 200
   m_TreeMaximumFullLODCount: 50
   m_DetailObjectDistance: 80
   m_DetailObjectDensity: 1
@@ -520,8 +520,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 46675023499ae4049b8bbee722a2c2a1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   playerAxis: {fileID: 1883771129}
   pickUpRange: 25
   moveForce: 250
@@ -669,7 +669,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1045392134284201315, guid: 35ecf6e89cea6e94aa13356e3a5ad360, type: 3}
       propertyPath: playerStats
-      value: 
+      value:
       objectReference: {fileID: 1720565373}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 35ecf6e89cea6e94aa13356e3a5ad360, type: 3}
@@ -714,7 +714,7 @@ Terrain:
   m_TerrainData: {fileID: 15600000, guid: 28b38ad348502594b9d3198593e643a1, type: 2}
   m_TreeDistance: 5000
   m_TreeBillboardDistance: 50
-  m_TreeCrossFadeLength: 5
+  m_TreeCrossFadeLength: 200
   m_TreeMaximumFullLODCount: 50
   m_DetailObjectDistance: 80
   m_DetailObjectDensity: 1
@@ -781,7 +781,7 @@ Transform:
   - {fileID: 892678150}
   - {fileID: 201835757}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &1453633879 stripped
 RectTransform:
@@ -797,8 +797,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4349dae60854eeb4390f48cc41b9d774, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
 --- !u!1 &1543072925
 GameObject:
   m_ObjectHideFlags: 0
@@ -840,7 +840,7 @@ Terrain:
   m_TerrainData: {fileID: 15600000, guid: db433359d1b5bf341abf9bb8c5dfaa1a, type: 2}
   m_TreeDistance: 5000
   m_TreeBillboardDistance: 50
-  m_TreeCrossFadeLength: 5
+  m_TreeCrossFadeLength: 200
   m_TreeMaximumFullLODCount: 50
   m_DetailObjectDistance: 80
   m_DetailObjectDensity: 1
@@ -888,11 +888,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3032500448873223188, guid: 3af854addab38f447b81cd6794509615, type: 3}
       propertyPath: healthBar
-      value: 
+      value:
       objectReference: {fileID: 1914545638}
     - target: {fileID: 3032500448873223188, guid: 3af854addab38f447b81cd6794509615, type: 3}
       propertyPath: hungerBar
-      value: 
+      value:
       objectReference: {fileID: 1504580753}
     - target: {fileID: 3032500448873223188, guid: 3af854addab38f447b81cd6794509615, type: 3}
       propertyPath: regenWait
@@ -1032,8 +1032,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 626073944ec19d342b0262060b42bf62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
 --- !u!1 &1933676353
 GameObject:
   m_ObjectHideFlags: 0
@@ -1062,8 +1062,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f585de1503151c042afc57ce09de6499, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   rotateSpeed: 1.5
 --- !u!108 &1953846493
 Light:
