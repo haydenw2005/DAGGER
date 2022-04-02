@@ -71,8 +71,9 @@ public class PlayerMain : MonoBehaviour
     {
         Debug.Log("hit");
 
-        if(other.gameObject.name == "RiverWater")
+        if(other.gameObject.name == "River")
         {
+            Debug.Log("whoosh");
             Vector3 teleport = new Vector3(147f, 57f, 776f);
             Player.transform.position = teleport;
             teleport = Vector3.zero;
