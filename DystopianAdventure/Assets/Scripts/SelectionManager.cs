@@ -4,36 +4,91 @@ using UnityEngine;
 
 public class SelectionManager : MonoBehaviour
 {
-    [SerializeField] private string selectableTag = "Selectable";
-    [SerializeField] private Material highlightMaterial;
-    [SerializeField] private Material defaultMaterial;
+  public Transform playerAxis;
+  public float pickUpRange=5;
+  public float moveForce = 250;
+  public Transform holdParent;
 
-    private Transform _selection;
-    public Transform playerAxis;
-
-    // Update is called once per frame
-    //Code from https://www.youtube.com/watch?v=_yf5vzZ2sYE
-    void Update()
+  private GameObject heldobj;
+  // Update is called once per frame
+  void Update()
+  {
+    if (heldobj == null)
     {
-      if(_selection != null)
+      RaycastHit select;
+      if(Physics.Raycast(playerAxis.transform.position, playerAxis.transform.forward, out select, pickUpRange))
       {
-        var selectionRenderer  = _selection.GetComponent<Renderer>();
-        selectionRenderer.material = defaultMaterial;
-        _selection = null;
-      }
-      RaycastHit hit;
-      if(Physics.Raycast(playerAxis.transform.position, playerAxis.transform.forward, out hit))
-      {
-        var selection = hit.transform;
-        if(selection.CompareTag(selectableTag))
+        if(select.transform.gameObject.tag == "Selectable" || select.transform.gameObject.tag == "hoverCar")
         {
-          var selectionRenderer = selection.GetComponent<Renderer>();
-          if(selectionRenderer != null)
-          {
-            selectionRenderer.material = highlightMaterial;
-          }
-          _selection = selection;
+          select.collider.SendMessage("HitByRay", SendMessageOptions.DontRequireReceiver);
         }
       }
     }
+    if (Input.GetKeyDown(KeyCode.E))
+    {
+      if (heldobj == null)
+      {
+        RaycastHit hit;
+        if(Physics.Raycast(playerAxis.transform.position, playerAxis.transform.forward, out hit, pickUpRange))
+        {
+          if(hit.transform.gameObject.tag == "Selectable")
+          {
+            PickupObject(hit.transform.gameObject);
+          }
+          else if(hit.transform.gameObject.tag == "hoverCar")
+          {
+            getInCar(hit.transform.gameObject);
+          }
+        }
+      }
+      else
+      {
+        DropObject();
+      }
+    }
+    if (heldobj != null)
+    {
+        MoveObject();
+    }
+  }
+
+  void MoveObject()
+  {
+    if(Vector3.Distance(heldobj.transform.position, holdParent.position) > 0.1f)
+    {
+      Vector3 moveDirection = (holdParent.position - heldobj.transform.position);
+      heldobj.GetComponent<Rigidbody>().AddForce(moveDirection * moveForce);
+    }
+  }
+
+  void PickupObject (GameObject pickobj)
+  {
+    if (pickobj.GetComponent<Rigidbody>())
+    {
+      Rigidbody objRig = pickobj.GetComponent<Rigidbody>();
+      Collider objCollide = pickobj.GetComponent<Collider>();
+      objCollide.enabled = false;
+      objRig.useGravity = false;
+      objRig.drag = 10;
+      objRig.transform.parent = holdParent;
+      heldobj = pickobj;
+    }
+  }
+
+  void DropObject()
+  {
+    Rigidbody heldRig = heldobj.GetComponent<Rigidbody>();
+    Collider heldCollide = heldobj.GetComponent<Collider>();
+    heldCollide.enabled = true;
+    heldRig.useGravity = true;
+    heldRig.drag = 1;
+    heldobj.transform.parent= null;
+    heldobj= null;
+  }
+
+  void getInCar(GameObject hoverCar)
+  {
+    Debug.Log("vroom");
+  }
+
 }
