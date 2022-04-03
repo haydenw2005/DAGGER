@@ -40,6 +40,7 @@ public class PlayerMain : MonoBehaviour
         
         
     }
+
     // Update is called once per frame
     void Update()
     {
@@ -62,5 +63,21 @@ public class PlayerMain : MonoBehaviour
         hungerBar.SetHunger(currentHunger);
     }
 
-    
+
+    //public Transform Spawn;
+    public GameObject Player;
+
+    void OnCollisionEnter(Collision other)
+    {
+        Debug.Log("hit");
+
+        if(other.gameObject.name == "River")
+        {
+            Debug.Log("whoosh");
+            Vector3 teleport = new Vector3(147f, 57f, 776f);
+            Player.transform.position = teleport;
+            teleport = Vector3.zero;
+        }
+    }
+
 }
