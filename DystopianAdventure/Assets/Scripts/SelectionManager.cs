@@ -18,7 +18,7 @@ public class SelectionManager : MonoBehaviour
       RaycastHit select;
       if(Physics.Raycast(playerAxis.transform.position, playerAxis.transform.forward, out select, pickUpRange))
       {
-        if(select.transform.gameObject.tag == "canPickUp" || select.transform.gameObject.tag == "hoverCar")
+        if(select.transform.gameObject.tag == "Selectable" || select.transform.gameObject.tag == "hoverCar")
         {
           select.collider.SendMessage("HitByRay", SendMessageOptions.DontRequireReceiver);
         }
@@ -31,7 +31,7 @@ public class SelectionManager : MonoBehaviour
         RaycastHit hit;
         if(Physics.Raycast(playerAxis.transform.position, playerAxis.transform.forward, out hit, pickUpRange))
         {
-          if(hit.transform.gameObject.tag == "canPickUp")
+          if(hit.transform.gameObject.tag == "Selectable")
           {
             PickupObject(hit.transform.gameObject);
           }
