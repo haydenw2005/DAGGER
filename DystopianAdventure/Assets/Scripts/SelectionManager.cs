@@ -8,9 +8,10 @@ public class SelectionManager : MonoBehaviour
   public float pickUpRange=5;
   public float moveForce = 250;
   public Transform holdParent;
+  public Inventory inventory;
 
   private GameObject heldobj;
-  // Update is called once per frame
+
   void Update()
   {
     if (heldobj == null)
@@ -26,6 +27,12 @@ public class SelectionManager : MonoBehaviour
     }
     if (Input.GetKeyDown(KeyCode.E))
     {
+      for (int i = 0; i < inventory.slots.Length; i++) {
+        if (inventory.isFull[i] == false) { 
+
+        }
+      }
+      
       if (heldobj == null)
       {
         RaycastHit hit;
