@@ -9,7 +9,23 @@ public class SelectionManager : MonoBehaviour
   public float moveForce = 250;
   public Transform holdParent;
 
+  private bool inCar;
   private GameObject heldobj;
+
+  public HoverFollowCam HoverFollowCam;
+  Camera m_MainCamera;
+  // Start is called before the first frame update
+  void Start()
+  {
+      //This gets the Main Camera from the Scene
+      m_MainCamera = Camera.main;
+      //This enables Main Camera
+      m_MainCamera.enabled = true;
+      //Use this to disable secondary Camera
+      HoverFollowCam.enabled = false;
+      inCar = HoverFollowCam.enabled;
+  }
+
   // Update is called once per frame
   void Update()
   {
@@ -18,7 +34,7 @@ public class SelectionManager : MonoBehaviour
       RaycastHit select;
       if(Physics.Raycast(playerAxis.transform.position, playerAxis.transform.forward, out select, pickUpRange))
       {
-        if(select.transform.gameObject.tag == "Selectable" || select.transform.gameObject.tag == "hoverCar")
+        if(select.transform.gameObject.tag == "Selectable" || select.transform.gameObject.tag == "Player")
         {
           select.collider.SendMessage("HitByRay", SendMessageOptions.DontRequireReceiver);
         }
@@ -26,7 +42,7 @@ public class SelectionManager : MonoBehaviour
     }
     if (Input.GetKeyDown(KeyCode.E))
     {
-      if (heldobj == null)
+      if (heldobj == null && inCar == false)
       {
         RaycastHit hit;
         if(Physics.Raycast(playerAxis.transform.position, playerAxis.transform.forward, out hit, pickUpRange))
@@ -35,15 +51,23 @@ public class SelectionManager : MonoBehaviour
           {
             PickupObject(hit.transform.gameObject);
           }
-          else if(hit.transform.gameObject.tag == "hoverCar")
+          else if(hit.transform.gameObject.tag == "Player")
           {
-            getInCar(hit.transform.gameObject);
+            Debug.Log("Lemme in");
+            getInCar();
           }
         }
       }
       else
       {
-        DropObject();
+        if(heldobj != null)
+        {
+          DropObject();
+        }
+        else
+        {
+          getOutCar();
+        }
       }
     }
     if (heldobj != null)
@@ -86,9 +110,28 @@ public class SelectionManager : MonoBehaviour
     heldobj= null;
   }
 
-  void getInCar(GameObject hoverCar)
+  void getInCar()
   {
-    Debug.Log("vroom");
+    if (inCar == false)
+    {
+        //Enable the second Camera
+        HoverFollowCam.enabled = true;
+        //The Main first Camera is disabled
+        m_MainCamera.enabled = false;
+    }
+    inCar = true;
+  }
+
+  void getOutCar()
+  {
+    if (inCar == true)
+    {
+        //disable the second Camera
+        HoverFollowCam.enabled = false;
+        //The Main first Camera is enabled
+        m_MainCamera.enabled = true;
+    }
+    inCar = false;
   }
 
 }

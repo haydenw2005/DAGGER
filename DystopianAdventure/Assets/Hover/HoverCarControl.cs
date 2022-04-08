@@ -20,6 +20,7 @@ public class HoverCarControl : MonoBehaviour
 
   public GameObject m_leftAirBrake;
   public GameObject m_rightAirBrake;
+  public Camera firstPersonCamera;
 
   int m_layerMask;
 
@@ -39,9 +40,9 @@ public class HoverCarControl : MonoBehaviour
     for (int i = 0; i < m_hoverPoints.Length; i++)
     {
       var hoverPoint = m_hoverPoints [i];
-      if (Physics.Raycast(hoverPoint.transform.position, 
+      if (Physics.Raycast(hoverPoint.transform.position,
                           -Vector3.up, out hit,
-                          m_hoverHeight, 
+                          m_hoverHeight,
                           m_layerMask))
       {
         Gizmos.color = Color.blue;
@@ -50,28 +51,30 @@ public class HoverCarControl : MonoBehaviour
       } else
       {
         Gizmos.color = Color.red;
-        Gizmos.DrawLine(hoverPoint.transform.position, 
+        Gizmos.DrawLine(hoverPoint.transform.position,
                        hoverPoint.transform.position - Vector3.up * m_hoverHeight);
       }
     }
   }
-	
+
   void Update()
   {
+    if (firstPersonCamera.enabled == false)
+    {
+      // Main Thrust
+      m_currThrust = 0.0f;
+      float aclAxis = Input.GetAxis("Vertical");
+      if (aclAxis > m_deadZone)
+        m_currThrust = aclAxis * m_forwardAcl;
+      else if (aclAxis < -m_deadZone)
+        m_currThrust = aclAxis * m_backwardAcl;
 
-    // Main Thrust
-    m_currThrust = 0.0f;
-    float aclAxis = Input.GetAxis("Vertical");
-    if (aclAxis > m_deadZone)
-      m_currThrust = aclAxis * m_forwardAcl;
-    else if (aclAxis < -m_deadZone)
-      m_currThrust = aclAxis * m_backwardAcl;
-
-    // Turning
-    m_currTurn = 0.0f;
-    float turnAxis = Input.GetAxis("Horizontal");
-    if (Mathf.Abs(turnAxis) > m_deadZone)
-      m_currTurn = turnAxis;
+      // Turning
+      m_currTurn = 0.0f;
+      float turnAxis = Input.GetAxis("Horizontal");
+      if (Mathf.Abs(turnAxis) > m_deadZone)
+        m_currTurn = turnAxis;
+    }
   }
 
   void FixedUpdate()
@@ -82,13 +85,13 @@ public class HoverCarControl : MonoBehaviour
     for (int i = 0; i < m_hoverPoints.Length; i++)
     {
       var hoverPoint = m_hoverPoints [i];
-      if (Physics.Raycast(hoverPoint.transform.position, 
+      if (Physics.Raycast(hoverPoint.transform.position,
                           -Vector3.up, out hit,
                           m_hoverHeight,
                           m_layerMask))
-        m_body.AddForceAtPosition(Vector3.up 
+        m_body.AddForceAtPosition(Vector3.up
           * m_hoverForce
-          * (1.0f - (hit.distance / m_hoverHeight)), 
+          * (1.0f - (hit.distance / m_hoverHeight)),
                                   hoverPoint.transform.position);
       else
       {
