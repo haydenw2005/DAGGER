@@ -19,6 +19,7 @@ public class PlayerMain : MonoBehaviour
     public int regenHealth;
     public GameObject pauseMenu;
     public CharacterController charController;
+    public GameObject Player;
 
 
     public Vector3 currentPosition;
@@ -58,6 +59,7 @@ public class PlayerMain : MonoBehaviour
         
         
     }
+
     // Update is called once per frame
     void Update()
     {
@@ -105,9 +107,9 @@ public class PlayerMain : MonoBehaviour
         currentPosition.x = data.playerPosition[0];
         currentPosition.y = data.playerPosition[1];
         currentPosition.z = data.playerPosition[2];
-        //Debug.Log(currentPosition.x);
-        //Debug.Log(currentPosition.y);
-        //Debug.Log(currentPosition.z);
+        Debug.Log(currentPosition.x);
+        Debug.Log(currentPosition.y);
+        Debug.Log(currentPosition.z);
 
         //currentRotation.x = data.playerAngle[0];
         //currentRotation.y = data.playerAngle[1];
@@ -125,4 +127,17 @@ public class PlayerMain : MonoBehaviour
          
         //transform.rotation = Quaternion.Euler(0.0f, data.playerAngle, 0.0f);    
     }    
+
+    void OnCollisionEnter(Collision other)
+    {
+
+        if(other.gameObject.name == "River")
+        {
+            Debug.Log("whoosh");
+            Vector3 teleport = new Vector3(147f, 57f, 776f);
+            Player.transform.position = teleport;
+            teleport = Vector3.zero;
+        }
+    }
+
 }
