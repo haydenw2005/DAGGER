@@ -56,6 +56,11 @@ public class SelectionManager : MonoBehaviour
             Debug.Log("Lemme in");
             getInCar();
           }
+          else if(hit.transform.gameObject.name == "Toon Chicken")
+          {
+            Debug.Log("chickendeath");
+            hit.transform.gameObject.SendMessage("KillChicken", SendMessageOptions.DontRequireReceiver);
+          }
         }
       }
       else

@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ChickenWander : MonoBehaviour {
-    
+
     public float moveSpeed = 3f;
     public float rotSpeed = 100f;
+    public GameObject drumstick;
 
     private bool isWandering = false;
     private bool isRotatingLeft = false;
@@ -71,4 +72,12 @@ public class ChickenWander : MonoBehaviour {
         }
         isWandering = false;
     }
+
+    void KillChicken()
+    {
+        Debug.Log("eaten");
+        Destroy(this.gameObject);
+        Instantiate(drumstick, this.transform.position, this.transform.rotation);
+    }
+
 }
