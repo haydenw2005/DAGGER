@@ -8,10 +8,9 @@ public class SelectionManager : MonoBehaviour
   public float pickUpRange=5;
   public float moveForce = 250;
   public Transform holdParent;
-  public Inventory inventory;
-
   private GameObject heldobj;
 
+  // Update is called once per frame
   void Update()
   {
     if (heldobj == null)
@@ -19,7 +18,7 @@ public class SelectionManager : MonoBehaviour
       RaycastHit select;
       if(Physics.Raycast(playerAxis.transform.position, playerAxis.transform.forward, out select, pickUpRange))
       {
-        if(select.transform.gameObject.tag == "Selectable" || select.transform.gameObject.tag == "hoverCar")
+        if(select.transform.gameObject.tag == "Selectable" || select.transform.gameObject.tag == "Player")
         {
           select.collider.SendMessage("HitByRay", SendMessageOptions.DontRequireReceiver);
         }
@@ -27,36 +26,34 @@ public class SelectionManager : MonoBehaviour
     }
     if (Input.GetKeyDown(KeyCode.E))
     {
-      for (int i = 0; i < inventory.slots.Length; i++) {
-        if (inventory.isFull[i] == false) { 
-
-        }
-      }
-      
-      if (heldobj == null)
+      if (heldobj == null)//if (heldobj == null && inCar == false)
       {
         RaycastHit hit;
         if(Physics.Raycast(playerAxis.transform.position, playerAxis.transform.forward, out hit, pickUpRange))
         {
-          if(hit.transform.gameObject.tag == "Selectable")
+          if(hit.transform.gameObject.tag == "Selectable" && hit.transform.gameObject.TryGetComponent<ItemObject>(out ItemObject item))
           {
             PickupObject(hit.transform.gameObject);
-          }
-          else if(hit.transform.gameObject.tag == "hoverCar")
-          {
-            getInCar(hit.transform.gameObject);
+            item.OnHandlePickupItem();
           }
         }
       }
       else
       {
-        DropObject();
+        if(heldobj != null)
+        {
+          DropObject();
+        }
       }
     }
     if (heldobj != null)
     {
-        MoveObject();
+      MoveObject();
     }
+    if (Input.GetKeyDown(KeyCode.G)) {
+      //InventorySystem.emptyInventory();
+    }
+    
   }
 
   void MoveObject()
@@ -92,10 +89,4 @@ public class SelectionManager : MonoBehaviour
     heldobj.transform.parent= null;
     heldobj= null;
   }
-
-  void getInCar(GameObject hoverCar)
-  {
-    Debug.Log("vroom");
-  }
-
 }
