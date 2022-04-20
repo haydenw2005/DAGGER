@@ -556,6 +556,7 @@ MonoBehaviour:
   pickUpRange: 25
   moveForce: 250
   holdParent: {fileID: 349503710}
+  HoverFollowCam: {fileID: 0}
 --- !u!1 &349503709
 GameObject:
   m_ObjectHideFlags: 0
@@ -1462,13 +1463,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1678644347}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 147.06882, y: 66.2, z: 736}
+  m_LocalRotation: {x: 0.076980084, y: 0, z: 0, w: 0.99703264}
+  m_LocalPosition: {x: 147.06882, y: 66.91, z: 749.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 9
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 8.83, y: 0, z: 0}
 --- !u!1 &1691913043
 GameObject:
   m_ObjectHideFlags: 0

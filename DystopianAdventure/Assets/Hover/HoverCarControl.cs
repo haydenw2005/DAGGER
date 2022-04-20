@@ -58,7 +58,7 @@ public class HoverCarControl : MonoBehaviour
 	
   void Update()
   {
-
+    if()
     // Main Thrust
     m_currThrust = 0.0f;
     float aclAxis = Input.GetAxis("Vertical");
