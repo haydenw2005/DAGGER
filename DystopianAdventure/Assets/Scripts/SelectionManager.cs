@@ -28,23 +28,6 @@ public class SelectionManager : MonoBehaviour
 
   // Update is called once per frame
 
-  //hover car stuff
-  public HoverFollowCam HoverFollowCam;
-  Camera m_MainCamera; 
-  public GameObject hoverCar;
-  // Start is called before the first frame update
-  void Start()
-  {
-      //This gets the Main Camera from the Scene
-      m_MainCamera = Camera.main;
-      //This enables Main Camera
-      m_MainCamera.enabled = true;
-      //Use this to disable secondary Camera
-      HoverFollowCam.enabled = false;
-      item.disable = true;
-
-  }
-
   void Update()
   {
     if (heldobj == null)
