@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     public float verticalSpeed = 2.5f;
     public float yaw = 2f;
     public float pitch = 2f;
+    
 
     // Start is called before the first frame update
     void Start()
