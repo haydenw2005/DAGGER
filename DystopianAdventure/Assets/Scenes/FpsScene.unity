@@ -361,7 +361,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!65 &445097632
 BoxCollider:
@@ -664,6 +664,8 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 64
+  firstPersonCamera: {fileID: 1389860312}
+  hoverCamera: {fileID: 0}
 --- !u!114 &935690407
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -685,6 +687,10 @@ MonoBehaviour:
   hungerRate: 0.25
   regenWait: 5
   regenHealth: -3
+  pauseMenu: {fileID: 0}
+  charController: {fileID: 0}
+  Player: {fileID: 0}
+  currentPosition: {x: 0, y: 0, z: 0}
 --- !u!4 &998190404 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 53973ba043b7ca94e80c89239cebc8cf, type: 3}
@@ -1281,6 +1287,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerAxis: {fileID: 1389860313}
+  pickUpRange: 5
+  moveForce: 250
+  holdParent: {fileID: 0}
+  HoverFollowCam: {fileID: 0}
 --- !u!4 &1519873897
 Transform:
   m_ObjectHideFlags: 0

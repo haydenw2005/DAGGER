@@ -7,18 +7,22 @@ using TMPro;
 
 public class SlotScript : MonoBehaviour
 {
+    public List<GameObject> itemsInSlot;
+
     [SerializeField]
-    private Image m_icon;
+    public Image m_border;
+
+    [SerializeField]
+    public Image m_icon;
     
     [SerializeField]
-    private TextMeshProUGUI m_label;
+    public TextMeshProUGUI m_label;
 
     [SerializeField]
-    private GameObject m_stackObj;
+    public GameObject m_stackObj;
 
     [SerializeField]
-    private TextMeshProUGUI m_stackLabel;
-
+    public TextMeshProUGUI m_stackLabel;
 
     public void Set(InventoryItem item) {
         m_stackObj.SetActive(true);
@@ -41,4 +45,12 @@ public class SlotScript : MonoBehaviour
         tempColor.a = newAlpha;
         m_icon.color = tempColor;
     }
+
+   /* public void setIsCurrentStatus(bool isTrue) {
+        isCurrent = isTrue;
+    }
+    */
+    public void addToSlot(GameObject newObject) {
+        itemsInSlot.Add(newObject);
+    } 
 }

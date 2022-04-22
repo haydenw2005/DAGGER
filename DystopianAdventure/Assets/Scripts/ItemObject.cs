@@ -6,14 +6,25 @@ public class ItemObject : MonoBehaviour
 {
     public InventoryItemData referenceItem;
 
+    /*public ItemObject(InventoryItemData source) {
+        referenceItem = source;
+    }*/
+
     public void OnHandlePickupItem() {
-        InventorySystem.current.Add(referenceItem);
+        InventorySystem.current.Add(referenceItem, gameObject);
         InventorySystem.current.UpdateInventoryUI();
-        //call UI update
-        Destroy(gameObject);
+        disableObject();
     }
 
     public void deleteItems() {
         InventorySystem.current.emptyInventory();
+    }
+
+    public void enableObject() {
+        gameObject.SetActive(true);
+    }
+
+    public void disableObject() {
+        gameObject.SetActive(false);
     }
 }
