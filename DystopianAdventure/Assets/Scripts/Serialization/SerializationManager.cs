@@ -8,7 +8,6 @@ using System.Runtime.Serialization.Formatters.Binary;
 public static class SerializationManager 
 {
     public static void Save(PlayerMain player) {
-        Debug.Log("SaveGame");
         BinaryFormatter formatter = new BinaryFormatter();
 
         string path = Application.persistentDataPath + "/player.fun";
@@ -22,7 +21,6 @@ public static class SerializationManager
     }
 
     public static PlayerData Load() {
-        Debug.Log("LoadGame");
         string path = Application.persistentDataPath + "/player.fun";
         if (File.Exists(path)) {
             BinaryFormatter formatter = new BinaryFormatter();
@@ -50,16 +48,5 @@ public static class SerializationManager
         {
             Debug.Log("False");
         }
-        /*
-        try
-        {
-            //Debug.Log("DeleteAllSave");
-            //File.Delete(path);
-        }
-        catch
-        {
-            //Debug.Log("Error");
-        }
-        */
      }
 }

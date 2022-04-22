@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Selectable
+  - canPickUp
+  - hoverCar
   - Secondary Camera
   layers:
   - Default
@@ -13,9 +15,9 @@ TagManager:
   - 
   - Water
   - UI
-  - Ground
-  - GroundTerrain
   - Characters
+  - Ground
+  - 
   - 
   - 
   - 

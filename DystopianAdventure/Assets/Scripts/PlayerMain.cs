@@ -27,7 +27,6 @@ public class PlayerMain : MonoBehaviour
 
     void Start()
     {
-        Debug.Log("Hello");
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
         currentHunger = maxHunger;
@@ -107,9 +106,6 @@ public class PlayerMain : MonoBehaviour
         currentPosition.x = data.playerPosition[0];
         currentPosition.y = data.playerPosition[1];
         currentPosition.z = data.playerPosition[2];
-        Debug.Log(currentPosition.x);
-        Debug.Log(currentPosition.y);
-        Debug.Log(currentPosition.z);
 
         //currentRotation.x = data.playerAngle[0];
         //currentRotation.y = data.playerAngle[1];
@@ -133,8 +129,12 @@ public class PlayerMain : MonoBehaviour
 
         if(other.gameObject.name == "River")
         {
+<<<<<<< HEAD
             Debug.Log("whoosh");
             Vector3 teleport = new Vector3(484f, 54f, 607f);
+=======
+            Vector3 teleport = new Vector3(147f, 57f, 776f);
+>>>>>>> 69fd279d3d4509f5b12e3d30d0cb07bff32ac50d
             Player.transform.position = teleport;
             teleport = Vector3.zero;
         }
