@@ -15,15 +15,15 @@ public class ChickenGod : MonoBehaviour
     {
       for (int i = 0; i <= numChick; i++)
         {
-          float randX = Random.Range(0,800);
-          float randZ = Random.Range(20, 1900);
+          float randX = Random.Range(200,600);
+          float randZ = Random.Range(400, 1000);
           Vector3 randPosition = new Vector3(randX, 70f, randZ);
           Instantiate(chicken, randPosition, OgTransform.rotation);
         }
         for (int i = 0; i <= numSheep; i++)
           {
-            float randX = Random.Range(0,800);
-            float randZ = Random.Range(20, 1900);
+            float randX = Random.Range(200,600);
+            float randZ = Random.Range(400, 1000);
             Vector3 randPosition = new Vector3(randX, 70f, randZ);
             Instantiate(sheep, randPosition, OgTransform.rotation);
           }

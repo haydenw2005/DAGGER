@@ -34,7 +34,7 @@ public class SelectionManager : MonoBehaviour
           //item.OnHandlePickupItem();
 
         }
-        else if(hit.transform.gameObject.name == "Toon Chicken" || hit.transform.gameObject.name == "SheepWhite")
+        else if(hit.transform.gameObject.name == "Toon Chicken" || hit.transform.gameObject.name == "SheepWhite" ||hit.transform.gameObject.name == "Toon Chicken(Clone)" || hit.transform.gameObject.name == "SheepWhite(Clone)")
         {
           hit.transform.gameObject.SendMessage("KillChicken", SendMessageOptions.DontRequireReceiver);
         }
