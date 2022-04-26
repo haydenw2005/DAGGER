@@ -8,78 +8,53 @@ public class SelectionManager : MonoBehaviour
   public float pickUpRange=5;
   public float moveForce = 250;
   public Transform holdParent;
-
-  private bool inCar;
   private GameObject heldobj;
-
-  public HoverFollowCam HoverFollowCam;
-  Camera m_MainCamera;
-  // Start is called before the first frame update
-  void Start()
-  {
-      //This gets the Main Camera from the Scene
-      m_MainCamera = Camera.main;
-      //This enables Main Camera
-      m_MainCamera.enabled = true;
-      //Use this to disable secondary Camera
-      HoverFollowCam.enabled = false;
-      inCar = HoverFollowCam.enabled;
-  }
 
   // Update is called once per frame
 
   void Update()
   {
-    if (heldobj == null)
+    
+    RaycastHit select;
+    if(Physics.Raycast(playerAxis.transform.position, playerAxis.transform.forward, out select, pickUpRange))
     {
-      RaycastHit select;
-      if(Physics.Raycast(playerAxis.transform.position, playerAxis.transform.forward, out select, pickUpRange))
+      if(select.transform.gameObject.tag == "Selectable" || select.transform.gameObject.tag == "Player")
       {
-        if(select.transform.gameObject.tag == "Selectable" || select.transform.gameObject.tag == "Player")
-        {
-          select.collider.SendMessage("HitByRay", SendMessageOptions.DontRequireReceiver);
-        }
+        select.collider.SendMessage("HitByRay", SendMessageOptions.DontRequireReceiver);
       }
     }
+  
     if (Input.GetKeyDown(KeyCode.E))
     {
-      if (heldobj == null && inCar == false)
+      RaycastHit hit;
+      if(Physics.Raycast(playerAxis.transform.position, playerAxis.transform.forward, out hit, pickUpRange))
       {
-        RaycastHit hit;
-        if(Physics.Raycast(playerAxis.transform.position, playerAxis.transform.forward, out hit, pickUpRange))
+        if(hit.transform.gameObject.tag == "Selectable" && hit.transform.gameObject.TryGetComponent<ItemObject>(out ItemObject item))
         {
-          if(hit.transform.gameObject.tag == "Selectable")
-          {
-            PickupObject(hit.transform.gameObject);
-          }
-          else if(hit.transform.gameObject.tag == "Player")
-          {
-            Debug.Log("Lemme in");
-            getInCar();
-          }
-          else if(hit.transform.gameObject.name == "Toon Chicken")
-          {
-            Debug.Log("chickendeath");
-            hit.transform.gameObject.SendMessage("KillChicken", SendMessageOptions.DontRequireReceiver);
-          }
+          PickupObject(hit.transform.gameObject, item);
+          //item.OnHandlePickupItem();
+
         }
-      }
-      else
-      {
-        if(heldobj != null)
+        else if(hit.transform.gameObject.name == "Toon Chicken")
         {
-          DropObject();
-        }
-        else
-        {
-          getOutCar();
+          hit.transform.gameObject.SendMessage("KillChicken", SendMessageOptions.DontRequireReceiver);
         }
       }
     }
+
+    if (Input.GetKeyDown(KeyCode.Q))
+    {
+
+      GameObject objectToDrop = InventorySystem.current.Remove();
+      if (objectToDrop != null) {
+        DropObject(objectToDrop);
+      }
+    }
+    
     if (heldobj != null)
     {
-        MoveObject();
-    }
+      MoveObject();
+    }   
   }
 
   void MoveObject()
@@ -91,7 +66,7 @@ public class SelectionManager : MonoBehaviour
     }
   }
 
-  void PickupObject (GameObject pickobj)
+  void PickupObject (GameObject pickobj, ItemObject item)
   {
     if (pickobj.GetComponent<Rigidbody>())
     {
@@ -99,45 +74,28 @@ public class SelectionManager : MonoBehaviour
       Collider objCollide = pickobj.GetComponent<Collider>();
       objCollide.enabled = false;
       objRig.useGravity = false;
-      objRig.drag = 10;
+      objRig.drag = 20;
       objRig.transform.parent = holdParent;
       heldobj = pickobj;
+      StartCoroutine(timedPickup(0.25f, item));
+      //item.OnHandlePickupItem();
+      //heldobj.SetActive(false);
     }
   }
 
-  void DropObject()
+  void DropObject(GameObject objectToDrop)//chnage heldobj to a paramter that determines the object being thrown away
   {
-    Rigidbody heldRig = heldobj.GetComponent<Rigidbody>();
-    Collider heldCollide = heldobj.GetComponent<Collider>();
+    Rigidbody heldRig = objectToDrop.GetComponent<Rigidbody>();
+    Collider heldCollide = objectToDrop.GetComponent<Collider>();
     heldCollide.enabled = true;
     heldRig.useGravity = true;
     heldRig.drag = 1;
-    heldobj.transform.parent= null;
-    heldobj= null;
+    objectToDrop.transform.parent= null;
+    heldobj = null;
   }
 
-  void getInCar()
-  {
-    if (inCar == false)
-    {
-        //Enable the second Camera
-        HoverFollowCam.enabled = true;
-        //The Main first Camera is disabled
-        m_MainCamera.enabled = false;
-    }
-    inCar = true;
+  IEnumerator timedPickup(float time, ItemObject item) {
+    yield return new WaitForSeconds(time);
+    item.OnHandlePickupItem();
   }
-
-  void getOutCar()
-  {
-    if (inCar == true)
-    {
-        //disable the second Camera
-        HoverFollowCam.enabled = false;
-        //The Main first Camera is enabled
-        m_MainCamera.enabled = true;
-    }
-    inCar = false;
-  }
-
 }

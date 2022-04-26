@@ -24,12 +24,31 @@ public class HoverCarControl : MonoBehaviour
 
   int m_layerMask;
 
+
+  public Transform mainCamAxis;
+  public float pickUpRange = 5;
+  public float moveForce = 250;
+  public Transform playerPosition;
+  public Transform bikePosition;
+  public GameObject mainChar;
+
+  private bool inCar;
+  private GameObject heldobj;
+  public HoverFollowCam HoverFollowCam;
+  Camera m_MainCamera;
+
+
+
   void Start()
   {
     m_body = GetComponent<Rigidbody>();
 
     m_layerMask = 1 << LayerMask.NameToLayer("Characters");
     m_layerMask = ~m_layerMask;
+    m_MainCamera = Camera.main;
+    m_MainCamera.enabled = true;
+    HoverFollowCam.enabled = false;
+    inCar = HoverFollowCam.enabled;
   }
 
   void OnDrawGizmos()
@@ -59,22 +78,42 @@ public class HoverCarControl : MonoBehaviour
 
   void Update()
   {
-    if (firstPersonCamera.enabled == false)
-    {
-      // Main Thrust
-      m_currThrust = 0.0f;
-      float aclAxis = Input.GetAxis("Vertical");
-      if (aclAxis > m_deadZone)
-        m_currThrust = aclAxis * m_forwardAcl;
-      else if (aclAxis < -m_deadZone)
-        m_currThrust = aclAxis * m_backwardAcl;
 
-      // Turning
-      m_currTurn = 0.0f;
-      float turnAxis = Input.GetAxis("Horizontal");
-      if (Mathf.Abs(turnAxis) > m_deadZone)
-        m_currTurn = turnAxis;
+    // Main Thrust
+    m_currThrust = 0.0f;
+    float aclAxis = Input.GetAxis("Vertical");
+    if (aclAxis > m_deadZone)
+      m_currThrust = aclAxis * m_forwardAcl;
+    else if (aclAxis < -m_deadZone)
+      m_currThrust = aclAxis * m_backwardAcl;
+
+    // Turning
+    m_currTurn = 0.0f;
+    float turnAxis = Input.GetAxis("Horizontal");
+    if (Mathf.Abs(turnAxis) > m_deadZone)
+      m_currTurn = turnAxis;
+  
+
+
+    if (Input.GetKeyDown(KeyCode.E))
+    {
+      if (heldobj == null && inCar == false)
+      {
+        RaycastHit hit;
+        if(Physics.Raycast(mainCamAxis.transform.position, mainCamAxis.transform.forward, out hit, pickUpRange))
+        {
+          if(hit.transform.gameObject.tag == "Player")
+          {
+            Debug.Log("Lemme in");
+            getInCar();
+          }
+        }
+      }
+      else {
+        getOutCar();
+      }
     }
+
   }
 
   void FixedUpdate()
@@ -107,16 +146,43 @@ public class HoverCarControl : MonoBehaviour
     }
 
     // Forward
-    if (Mathf.Abs(m_currThrust) > 0)
+    if (Mathf.Abs(m_currThrust) > 0  && firstPersonCamera.enabled == false)
       m_body.AddForce(transform.forward * m_currThrust);
 
     // Turn
-    if (m_currTurn > 0)
+    if (m_currTurn > 0  && firstPersonCamera.enabled == false)
     {
       m_body.AddRelativeTorque(Vector3.up * m_currTurn * m_turnStrength);
-    } else if (m_currTurn < 0)
+    } else if (m_currTurn < 0  && firstPersonCamera.enabled == false)
     {
       m_body.AddRelativeTorque(Vector3.up * m_currTurn * m_turnStrength);
     }
+  }
+
+  void getInCar()
+  {
+    if (inCar == false)
+    {
+        //Enable the second Camera
+        HoverFollowCam.enabled = true;
+        //The Main first Camera is disabled
+        m_MainCamera.enabled = false;
+        mainChar.SetActive(false);
+    }
+    inCar = true;
+  }
+
+  void getOutCar()
+  {
+    if (inCar == true)
+    {
+        //disable the second Camera
+        HoverFollowCam.enabled = false;
+        //The Main first Camera is enabled
+        m_MainCamera.enabled = true;
+        mainChar.SetActive(true);
+        playerPosition.position = bikePosition.position + new Vector3(0.0f, 0.0f, -4.0f);
+    }
+    inCar = false;
   }
 }

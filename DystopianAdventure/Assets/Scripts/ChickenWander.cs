@@ -75,7 +75,6 @@ public class ChickenWander : MonoBehaviour {
 
     void KillChicken()
     {
-        Debug.Log("eaten");
         Destroy(this.gameObject);
         Instantiate(drumstick, this.transform.position, this.transform.rotation);
     }
