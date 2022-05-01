@@ -14,7 +14,7 @@ public class SelectionManager : MonoBehaviour
 
   void Update()
   {
-    
+
     RaycastHit select;
     if(Physics.Raycast(playerAxis.transform.position, playerAxis.transform.forward, out select, pickUpRange))
     {
@@ -23,7 +23,7 @@ public class SelectionManager : MonoBehaviour
         select.collider.SendMessage("HitByRay", SendMessageOptions.DontRequireReceiver);
       }
     }
-  
+
     if (Input.GetKeyDown(KeyCode.E))
     {
       RaycastHit hit;
@@ -35,7 +35,7 @@ public class SelectionManager : MonoBehaviour
           //item.OnHandlePickupItem();
 
         }
-        else if(hit.transform.gameObject.name == "Toon Chicken")
+        else if(hit.transform.gameObject.tag == "Lunchable")
         {
           hit.transform.gameObject.SendMessage("KillChicken", SendMessageOptions.DontRequireReceiver);
         }
@@ -50,11 +50,11 @@ public class SelectionManager : MonoBehaviour
         DropObject(objectToDrop);
       }
     }
-    
+
     if (heldobj != null)
     {
       MoveObject();
-    }   
+    }
   }
 
   void MoveObject()

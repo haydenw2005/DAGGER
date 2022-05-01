@@ -13,6 +13,7 @@ public class ChickenWander : MonoBehaviour {
     private bool isRotatingRight = false;
     private bool isWalking = false;
 
+
     public Animation anim;
 
     void Start() {
@@ -78,5 +79,4 @@ public class ChickenWander : MonoBehaviour {
         Destroy(this.gameObject);
         Instantiate(drumstick, this.transform.position, this.transform.rotation);
     }
-
 }
