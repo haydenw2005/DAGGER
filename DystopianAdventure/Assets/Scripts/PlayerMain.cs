@@ -76,7 +76,7 @@ public class PlayerMain : MonoBehaviour
         //position = transform.position;
     }
 
-    void TakeDamage(int damage) {
+    public void TakeDamage(int damage) {
         if (currentHealth > 0) {
             currentHealth -= damage;
             healthBar.SetHealth(currentHealth);
@@ -86,7 +86,7 @@ public class PlayerMain : MonoBehaviour
         }
     }
 
-    void TakeHunger(int hunger) {
+    public void TakeHunger(int hunger) {
         currentHunger -= hunger;
         hungerBar.SetHunger(currentHunger);
     }
