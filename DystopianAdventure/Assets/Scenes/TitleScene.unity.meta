@@ -1,7 +1,13 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:DystopianAdventure/Assets/Low Poly Water/Plane Meshes/Plane10x10W10H10.asset.meta
+guid: 6707615b10e790444b0e492cce4011f4
+NativeFormatImporter:
+========
 guid: 1f196ecadd617c6408a8b234da02297b
 DefaultImporter:
+>>>>>>>> 1d34ec1a3d37aec0f1cda6e1660e415d0b1321fd:DystopianAdventure/Assets/Scenes/TitleScene.unity.meta
   externalObjects: {}
+  mainObjectFileID: 4300000
   userData: 
   assetBundleName: 
   assetBundleVariant: 

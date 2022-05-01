@@ -1,7 +1,13 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:DystopianAdventure/Assets/Low Poly Water/Plane Meshes/River1x1W1H1.asset.meta
+guid: 3a91b490870d21d429dd469dc655522e
+NativeFormatImporter:
+========
 guid: 1b8d251f9af63b746bf2f7ffe00ebb9b
 DefaultImporter:
+>>>>>>>> 1d34ec1a3d37aec0f1cda6e1660e415d0b1321fd:DystopianAdventure/Assets/TextMesh Pro/Documentation/TextMesh Pro User Guide 2016.pdf.meta
   externalObjects: {}
+  mainObjectFileID: 4300000
   userData: 
   assetBundleName: 
   assetBundleVariant: 

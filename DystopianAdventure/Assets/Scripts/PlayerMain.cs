@@ -42,7 +42,7 @@ public class PlayerMain : MonoBehaviour
         //SaveData.current.Add(position);
     }
     private void TimeTickSystem_OnTick (object sender, TimeTickSystem.OnTickEventArgs e) {
-        if (e.tick % hungerRate == 0 && currentHunger > 0){ 
+        if (e.tick % hungerRate == 0 && currentHunger > 0){
             TakeHunger(1);
         }
         else if (currentHunger == 0) {
@@ -55,8 +55,8 @@ public class PlayerMain : MonoBehaviour
             TakeDamage(-1*(100-currentHealth));
         }
         ticksSinceDamage++;
-        
-        
+
+
     }
 
     // Update is called once per frame
@@ -67,7 +67,7 @@ public class PlayerMain : MonoBehaviour
             TakeDamage(8);
             if (!pauseMenu.activeSelf) {
                 pauseMenu.SetActive(true);
-                Time.timeScale = 0;     
+                Time.timeScale = 0;
             } else {
                 pauseMenu.SetActive(false);
                 Time.timeScale = 1;
@@ -94,7 +94,7 @@ public class PlayerMain : MonoBehaviour
     public void SavePlayer() {
         SerializationManager.Save(this);
     }
-    
+
     public void LoadPlayer() {
         PlayerData data = SerializationManager.Load();
 
@@ -102,7 +102,7 @@ public class PlayerMain : MonoBehaviour
         hungerBar.SetHunger(currentHunger);
         currentHealth = data.health;
         healthBar.SetHealth(currentHealth);
-        
+
         currentPosition.x = data.playerPosition[0];
         currentPosition.y = data.playerPosition[1];
         currentPosition.z = data.playerPosition[2];
@@ -119,17 +119,17 @@ public class PlayerMain : MonoBehaviour
         //transform.position = new Vector3(data.playerPosition[0], data.playerPosition[1], data.playerPosition[2]);
         transform.rotation = Quaternion.Euler(0f, data.playerAngle, 0f);
         //transform.TransformPoint(new Vector3(data.playerPosition[0], data.playerPosition[1], data.playerPosition[2]));
-        
-         
-        //transform.rotation = Quaternion.Euler(0.0f, data.playerAngle, 0.0f);    
-    }    
+
+
+        //transform.rotation = Quaternion.Euler(0.0f, data.playerAngle, 0.0f);
+    }
 
     void OnCollisionEnter(Collision other)
     {
 
         if(other.gameObject.name == "River")
         {
-            Vector3 teleport = new Vector3(147f, 57f, 776f);
+            Vector3 teleport = new Vector3(484f, 54f, 607f);
             Player.transform.position = teleport;
             teleport = Vector3.zero;
         }
