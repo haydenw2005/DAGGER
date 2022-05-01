@@ -20,6 +20,7 @@ public class PlayerMain : MonoBehaviour
     public GameObject pauseMenu;
     public CharacterController charController;
     public GameObject Player;
+    public float radius;
 
 
     public Vector3 currentPosition;
@@ -74,6 +75,11 @@ public class PlayerMain : MonoBehaviour
             }
         }
         //position = transform.position;
+        Collider[] hitColliders = Physics.OverlapSphere(this.transform.position, radius);
+        foreach (var hitCollider in hitColliders)
+        {
+          hitCollider.SendMessage("run", SendMessageOptions.DontRequireReceiver);
+        }
     }
 
     void TakeDamage(int damage) {
