@@ -1737,11 +1737,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 4dcebd235133a694a93e4257589823bc, type: 3}
+  m_audioClip: {fileID: 8300000, guid: e5ea0ed40967eee449fa61c906a4e7ac, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -1849,8 +1849,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5632d10fc217a2940a0495eac219cd5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_AudioClip2: {fileID: 8300000, guid: 0515e7c46a583c5418a8a3e9f1bafa34, type: 3}
+  dayLoop: {fileID: 8300000, guid: e5ea0ed40967eee449fa61c906a4e7ac, type: 3}
+  nightLoop: {fileID: 8300000, guid: 277ff09f6e2a2b8458e9cd871230b1be, type: 3}
+  darkForest: {fileID: 8300000, guid: 0515e7c46a583c5418a8a3e9f1bafa34, type: 3}
   mainPlayer: {fileID: 1163911738}
+  sun: {fileID: 1933676353}
+  moon: {fileID: 1351905063}
 --- !u!1 &571283744
 GameObject:
   m_ObjectHideFlags: 0
@@ -2822,7 +2826,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1163911738}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -293, y: 69.59, z: 937}
+  m_LocalPosition: {x: -277, y: 90, z: 972}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 757736236}
