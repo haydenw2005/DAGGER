@@ -6,10 +6,10 @@ public class Meat : MonoBehaviour
 {
     void Update()
     {
-         if (Input.GetKeyDown(KeyCode.E)) {
+         //if (Input.GetKeyDown(KeyCode.E)) {
             //player = GameObject.Find("FirstPersonPlayer");
             //player.TakeHunger(-10);
-            Destroy(gameObject);
-        }
+            //Destroy(gameObject);
+        //}
     }
 }

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2326483625521985036}
   - component: {fileID: 4325202617264559316}
   - component: {fileID: 4740088619866498686}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Icosphere.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 7244726538539443439}
   - component: {fileID: 4378924708900229016}
   - component: {fileID: 3381860355909872231}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: WholeBird
   m_TagString: Selectable
   m_Icon: {fileID: 0}
@@ -129,7 +129,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963739717108670263}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 5be77fae3f4c17249b00409f26ab40bf, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -176,7 +176,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abdfe978330164d45ad7fa18f6aa26fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
 --- !u!1 &2526659193860572528
 GameObject:
   m_ObjectHideFlags: 0
@@ -188,7 +187,7 @@ GameObject:
   - component: {fileID: 3429173103447504330}
   - component: {fileID: 9089454722827296413}
   - component: {fileID: 7898048023397891741}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cylinder.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -269,7 +268,7 @@ GameObject:
   - component: {fileID: 6747580200918759511}
   - component: {fileID: 5469305535407184419}
   - component: {fileID: 7092349460098716857}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -350,7 +349,7 @@ GameObject:
   - component: {fileID: 5983499571666919575}
   - component: {fileID: 2386783722139941039}
   - component: {fileID: 6759622653969890068}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Icosphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -431,7 +430,7 @@ GameObject:
   - component: {fileID: 5989375656716780971}
   - component: {fileID: 3365150436662647205}
   - component: {fileID: 5613935389653299927}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Icosphere.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -512,7 +511,7 @@ GameObject:
   - component: {fileID: 6637536808409493687}
   - component: {fileID: 4078308200069395063}
   - component: {fileID: 7187585279250483932}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cylinder.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -593,7 +592,7 @@ GameObject:
   - component: {fileID: 5709463850624788898}
   - component: {fileID: 4853000928142300923}
   - component: {fileID: 1022962143050369503}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cylinder.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
