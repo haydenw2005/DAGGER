@@ -21,7 +21,6 @@ public class PlayerMain : MonoBehaviour
     public CharacterController charController;
     public GameObject Player;
 
-
     public Vector3 currentPosition;
     //public float yAxisRotation; //save this
 
@@ -73,6 +72,17 @@ public class PlayerMain : MonoBehaviour
                 Time.timeScale = 1;
             }
         }
+
+        if(this.transform.position.x < -129f && this.transform.position.x > -741f 
+        && this.transform.position.z < 1780f && this.transform.position.z > 1061f)
+        {
+            RenderSettings.fog = true;
+        }
+        else 
+        {
+            RenderSettings.fog = false;
+        }
+
         //position = transform.position;
     }
 
@@ -129,12 +139,8 @@ public class PlayerMain : MonoBehaviour
 
         if(other.gameObject.name == "River")
         {
-<<<<<<< HEAD
             Debug.Log("whoosh");
             Vector3 teleport = new Vector3(484f, 54f, 607f);
-=======
-            Vector3 teleport = new Vector3(147f, 57f, 776f);
->>>>>>> 69fd279d3d4509f5b12e3d30d0cb07bff32ac50d
             Player.transform.position = teleport;
             teleport = Vector3.zero;
         }
