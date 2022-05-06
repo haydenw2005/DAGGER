@@ -15,7 +15,7 @@ public class RenderBushes : MonoBehaviour
         rb.isKinematic = false;
         for (int i = 0; i <= 100; i++)
         {
-            Vector3 position = new Vector3(Random.Range(80f, 758f), 77f, Random.Range(213f, 1741f));
+            Vector3 position = new Vector3(Random.Range(71f, 747f), 77f, Random.Range(253f, 1652f));
             Instantiate(BushPrefab, position, Bush.transform.rotation);
         }
         rb.isKinematic = true;
