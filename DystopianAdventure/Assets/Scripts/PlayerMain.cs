@@ -24,7 +24,6 @@ public class PlayerMain : MonoBehaviour
     public InventorySystem inventory;
     public HoverCarControl hoverCar;
 
-
     public Vector3 currentPosition;
     //public float yAxisRotation; //save this
 
@@ -93,6 +92,18 @@ public class PlayerMain : MonoBehaviour
 
             }
         }
+
+        if(this.transform.position.x < -129f && this.transform.position.x > -741f 
+        && this.transform.position.z < 1780f && this.transform.position.z > 1061f)
+        {
+            RenderSettings.fog = true;
+        }
+        else 
+        {
+            RenderSettings.fog = false;
+        }
+
+        //position = transform.position;
         Collider[] hitColliders = Physics.OverlapSphere(this.transform.position, radius);
         foreach (var hitCollider in hitColliders)
         {
