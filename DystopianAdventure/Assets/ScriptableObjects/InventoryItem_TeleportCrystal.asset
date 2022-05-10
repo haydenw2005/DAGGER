@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c2c30153868041b4aa5d0a0eaa1430d4, type: 3}
-  m_Name: InventoryItem_Pork
+  m_Name: InventoryItem_TeleportCrystal
   m_EditorClassIdentifier: 
-  id: InventoryItem_Pork
-  displayName: Pork
-  icon: {fileID: 21300000, guid: adf92f5459022124193e381473dbcce6, type: 3}
-  prefab: {fileID: 3517465817000159781, guid: ba43438e580714421b77702924702e2b, type: 3}
+  id: InventoryItem_TeleportCrystal
+  displayName: Telenium
+  icon: {fileID: 21300000, guid: 67d92be28ed43314bbaf848a1d873f6c, type: 3}
+  prefab: {fileID: 3324555112821321660, guid: ac0f85f34366a77419ec4e5e25630738, type: 3}
   render: {fileID: 0}
   testObject: {fileID: 0}

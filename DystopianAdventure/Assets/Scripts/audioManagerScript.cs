@@ -24,13 +24,10 @@ public class audioManagerScript : MonoBehaviour
         //Set the original AudioClip as this clip
         m_AudioClip = m_AudioSource.clip;
         //Output the current clip's length
-        Debug.Log("Audio clip length : " + m_AudioSource.clip.length);
     }
 
     void Update()
     {
-        Debug.Log(mainPlayer.transform.position.x + " " + mainPlayer.transform.position.z);
-        Debug.Log(inDarkForest);
         //Switch background music when you step into dark forest
         if (mainPlayer.transform.position.x < -129f && mainPlayer.transform.position.x > -741f && mainPlayer.transform.position.z < 1780f && mainPlayer.transform.position.z > 1061f)
         {
@@ -43,7 +40,6 @@ public class audioManagerScript : MonoBehaviour
         {
             if(inDarkForest) {
                 inDarkForest = false;
-                Debug.Log("not in dark forest");
                 SwitchAudio();
             }
 
@@ -69,6 +65,5 @@ public class audioManagerScript : MonoBehaviour
             m_AudioSource.Play();
         }
         //Ouput the length of the current Audio clip
-        Debug.Log("Audio clip length : " + m_AudioSource.clip.length);
     }
 }

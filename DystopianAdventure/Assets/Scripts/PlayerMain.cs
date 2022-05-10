@@ -21,6 +21,8 @@ public class PlayerMain : MonoBehaviour
     public CharacterController charController;
     public GameObject Player;
     public float radius;
+    public InventorySystem inventory;
+    public HoverCarControl hoverCar;
 
 
     public Vector3 currentPosition;
@@ -63,18 +65,34 @@ public class PlayerMain : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("escape"))
-        {
-            TakeDamage(8);
-            if (!pauseMenu.activeSelf) {
-                pauseMenu.SetActive(true);
-                Time.timeScale = 0;
-            } else {
-                pauseMenu.SetActive(false);
-                Time.timeScale = 1;
+        if(Input.anyKeyDown) {
+            if (Input.GetKeyDown("escape"))
+            {
+                TakeDamage(8);
+                if (!pauseMenu.activeSelf) {
+                    pauseMenu.SetActive(true);
+                    Time.timeScale = 0;
+                } else {
+                    pauseMenu.SetActive(false);
+                    Time.timeScale = 1;
+                }
+            }
+            if (Input.GetKey(KeyCode.E) && inventory.slots[inventory.getCurrentSlot()-1].itemsInSlot.Count >= 1) {
+                    inventory.slots[inventory.getCurrentSlot()-1].itemsInSlot[0].TryGetComponent<ItemObject>(out ItemObject item);
+                    Debug.Log(item.referenceItem.id);
+                    if (item.referenceItem.id == "InventoryItem_Pork" || item.referenceItem.id == "InventoryItem_Chicken") {
+                        TakeHunger(-10);
+                        Destroy(inventory.slots[inventory.getCurrentSlot()-1].itemsInSlot[0]);
+                        InventorySystem.current.Remove();
+                    } else if (item.referenceItem.id == "InventoryItem_BikeCrystal") {
+                        if (hoverCar.switchSeats() == true) {  
+                            Destroy(inventory.slots[inventory.getCurrentSlot()-1].itemsInSlot[0]);
+                            InventorySystem.current.Remove();
+                        }
+                    }
+
             }
         }
-        //position = transform.position;
         Collider[] hitColliders = Physics.OverlapSphere(this.transform.position, radius);
         foreach (var hitCollider in hitColliders)
         {

@@ -24,7 +24,7 @@ public class SelectionManager : MonoBehaviour
       }
     }
 
-    if (Input.GetKeyDown(KeyCode.E))
+    if (Input.GetMouseButtonDown(0))
     {
       RaycastHit hit;
       if(Physics.Raycast(playerAxis.transform.position, playerAxis.transform.forward, out hit, pickUpRange))

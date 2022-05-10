@@ -10,4 +10,5 @@ public class InventoryItemData : ScriptableObject
     public Sprite icon;
     public GameObject prefab;
     public MeshRenderer render;
+    public PlayerMain testObject;
 }
