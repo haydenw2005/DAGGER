@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.43667555, g: 0.48427182, b: 0.5645241, a: 1}
+  m_IndirectSpecularColor: {r: 0.43667564, g: 0.48427135, b: 0.5645232, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -151,7 +151,7 @@ Transform:
   m_LocalScale: {x: 0.5649718, y: 1, z: 0.40322584}
   m_Children: []
   m_Father: {fileID: 1492165875}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &30684581
 PrefabInstance:
@@ -2580,7 +2580,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 96.701, y: 24.343964}
+  m_AnchoredPosition: {x: 96.70099, y: 24.343994}
   m_SizeDelta: {x: 140, y: 24}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &540403198
@@ -2821,6 +2821,10 @@ MonoBehaviour:
   nightLoop: {fileID: 8300000, guid: 277ff09f6e2a2b8458e9cd871230b1be, type: 3}
   darkForest: {fileID: 8300000, guid: 0515e7c46a583c5418a8a3e9f1bafa34, type: 3}
   mainPlayer: {fileID: 1163911738}
+  sun: {fileID: 1933676353}
+  hoverCamera: {fileID: 1678644347}
+  inCar: 0
+  hoverCar: {fileID: 1492165874}
 --- !u!1001 &571213501
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2902,7 +2906,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 571283744}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1, y: 0.32551956, z: -1.128}
+  m_LocalPosition: {x: 1.8, y: 0.32551956, z: -1.743}
   m_LocalScale: {x: 0.5649718, y: 1, z: 0.40322584}
   m_Children: []
   m_Father: {fileID: 1492165875}
@@ -4986,7 +4990,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1163911738}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 573.01, y: 56.8, z: 601.6}
+  m_LocalPosition: {x: -234, y: 73, z: 943}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 757736236}
@@ -5376,7 +5380,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1231821504}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.16, y: 0.32551956, z: 0.94}
+  m_LocalPosition: {x: -1.96, y: 0.32551956, z: 1.2}
   m_LocalScale: {x: 0.5649718, y: 1, z: 0.40322584}
   m_Children: []
   m_Father: {fileID: 1492165875}
@@ -5616,7 +5620,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1336824411}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1, y: 0.32551956, z: 0.94}
+  m_LocalPosition: {x: 1.8, y: 0.32551956, z: 1.2}
   m_LocalScale: {x: 0.5649718, y: 1, z: 0.40322584}
   m_Children: []
   m_Father: {fileID: 1492165875}
@@ -6202,15 +6206,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: dd8c80a5a447f04418da146781b05fd8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 567.86
+      value: -239
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: dd8c80a5a447f04418da146781b05fd8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 57.69
+      value: 66.79
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: dd8c80a5a447f04418da146781b05fd8, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 600.28
+      value: 944.9
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: dd8c80a5a447f04418da146781b05fd8, type: 3}
       propertyPath: m_LocalRotation.w
@@ -6265,7 +6269,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_hoverForce: 1000
-  m_hoverHeight: 2.5
+  m_hoverHeight: 4
   m_hoverPoints:
   - {fileID: 1336824411}
   - {fileID: 1231821504}
@@ -6273,7 +6277,7 @@ MonoBehaviour:
   - {fileID: 571283744}
   m_forwardAcl: 7000
   m_backwardAcl: 1250
-  m_turnStrength: 600
+  m_turnStrength: 700
   m_leftAirBrake: {fileID: 14644597}
   m_rightAirBrake: {fileID: 1691913043}
   firstPersonCamera: {fileID: 757736239}
@@ -6283,6 +6287,7 @@ MonoBehaviour:
   playerPosition: {fileID: 1163911742}
   bikePosition: {fileID: 1492165875}
   mainChar: {fileID: 1163911738}
+  inCar: 0
   HoverFollowCam: {fileID: 1678644348}
 --- !u!65 &1492165877
 BoxCollider:
@@ -7226,7 +7231,7 @@ Transform:
   m_LocalScale: {x: 0.5649718, y: 1, z: 0.40322584}
   m_Children: []
   m_Father: {fileID: 1492165875}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1696242797 stripped
 MonoBehaviour:
@@ -8570,7 +8575,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f585de1503151c042afc57ce09de6499, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateSpeed: 1.5
+  rotateSpeed: 12.56
 --- !u!108 &1953846493
 Light:
   m_ObjectHideFlags: 0
@@ -8989,7 +8994,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2104624830}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.16, y: 0.32551956, z: -1.128}
+  m_LocalPosition: {x: -1.96, y: 0.32551956, z: -1.743}
   m_LocalScale: {x: 0.5649718, y: 1, z: 0.40322584}
   m_Children: []
   m_Father: {fileID: 1492165875}
