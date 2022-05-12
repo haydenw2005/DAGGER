@@ -9,7 +9,7 @@ public class SelectionManager : MonoBehaviour
   public float moveForce = 250;
   public Transform holdParent;
   private GameObject heldobj;
-
+  public InventorySystem inventory;
   // Update is called once per frame
 
   void Update()
@@ -29,7 +29,7 @@ public class SelectionManager : MonoBehaviour
       RaycastHit hit;
       if(Physics.Raycast(playerAxis.transform.position, playerAxis.transform.forward, out hit, pickUpRange))
       {
-        if(hit.transform.gameObject.tag == "Selectable" && hit.transform.gameObject.TryGetComponent<ItemObject>(out ItemObject item))
+        if(hit.transform.gameObject.tag == "Selectable" && hit.transform.gameObject.TryGetComponent<ItemObject>(out ItemObject item) && inventory.isFull(item) == false)
         {
           PickupObject(hit.transform.gameObject, item);
           //item.OnHandlePickupItem();
@@ -70,6 +70,8 @@ public class SelectionManager : MonoBehaviour
   {
     if (pickobj.GetComponent<Rigidbody>())
     {
+      Debug.Log(pickobj);
+      Debug.Log(item);
       Rigidbody objRig = pickobj.GetComponent<Rigidbody>();
       Collider objCollide = pickobj.GetComponent<Collider>();
       objCollide.enabled = false;

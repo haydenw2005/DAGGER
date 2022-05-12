@@ -659,9 +659,10 @@ GameObject:
   - component: {fileID: 8833324314201553488}
   - component: {fileID: 4051955131799714764}
   - component: {fileID: -1621936727406275679}
-  m_Layer: 0
+  - component: {fileID: 3596927780609956654}
+  m_Layer: 7
   m_Name: SausageSlice
-  m_TagString: Untagged
+  m_TagString: Selectable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -719,6 +720,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
+--- !u!114 &3596927780609956654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8204877945777266922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9aed7442f947644793e9a2171c36f54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  referenceItem: {fileID: 11400000, guid: 0c4aebe5350aef44a8d6208ef7da27bf, type: 2}
 --- !u!1 &8552140047740484033
 GameObject:
   m_ObjectHideFlags: 0
