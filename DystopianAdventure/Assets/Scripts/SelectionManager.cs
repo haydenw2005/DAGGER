@@ -8,6 +8,7 @@ public class SelectionManager : MonoBehaviour
   public float pickUpRange=5;
   public float moveForce = 250;
   public Transform holdParent;
+  public GameObject textMaker;
   private GameObject heldobj;
 
   // Update is called once per frame
@@ -18,9 +19,10 @@ public class SelectionManager : MonoBehaviour
     RaycastHit select;
     if(Physics.Raycast(playerAxis.transform.position, playerAxis.transform.forward, out select, pickUpRange))
     {
-      if(select.transform.gameObject.tag == "Selectable" || select.transform.gameObject.tag == "Player")
+      select.collider.SendMessage("HitByRay", SendMessageOptions.DontRequireReceiver);
+      if(select.collider.tag == "Lunchable" || select.collider.tag == "canPickUp" || select.collider.tag == "Selectable")
       {
-        select.collider.SendMessage("HitByRay", SendMessageOptions.DontRequireReceiver);
+        textMaker.SendMessage("canPickUp", select.transform.gameObject, SendMessageOptions.DontRequireReceiver);
       }
     }
 
@@ -33,7 +35,6 @@ public class SelectionManager : MonoBehaviour
         {
           PickupObject(hit.transform.gameObject, item);
           //item.OnHandlePickupItem();
-
         }
         else if(hit.transform.gameObject.tag == "Lunchable")
         {

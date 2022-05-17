@@ -74,12 +74,12 @@ public class PlayerMain : MonoBehaviour
             }
         }
 
-        if(this.transform.position.x < -129f && this.transform.position.x > -741f 
+        if(this.transform.position.x < -129f && this.transform.position.x > -741f
         && this.transform.position.z < 1780f && this.transform.position.z > 1061f)
         {
             RenderSettings.fog = true;
         }
-        else 
+        else
         {
             RenderSettings.fog = false;
         }
@@ -142,7 +142,6 @@ public class PlayerMain : MonoBehaviour
 
     void OnCollisionEnter(Collision other)
     {
-
         if(other.gameObject.name == "River")
         {
             Vector3 teleport = new Vector3(484f, 54f, 607f);

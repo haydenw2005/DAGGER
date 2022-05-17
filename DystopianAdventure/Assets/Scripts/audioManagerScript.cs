@@ -28,62 +28,53 @@ public class audioManagerScript : MonoBehaviour
         //Fetch the AudioSource from the GameObject
         m_AudioSource = GetComponent<AudioSource>();
         //Output the current clip's length
-        Debug.Log("Audio clip length : " + m_AudioSource.clip.length);
     }
 
     void Update()
     {
-        Debug.Log(inDarkForest);
         //Switch background music when you step into dark forest
         if (mainPlayer.transform.position.x < -129f && mainPlayer.transform.position.x > -741f && mainPlayer.transform.position.z < 1780f && mainPlayer.transform.position.z > 1061f)
         {
             if(!inDarkForest) {
                 SwitchAudio(darkForest);
                 inDarkForest = true;
-            }     
+            }
         }
-        else 
+        else
         // if not in dark forest
         {
             if(inDarkForest) {
                 inDarkForest = false;
-                Debug.Log("not in dark forest");
-                Debug.Log(sun.transform.position.y);
                 // if its sun is above a certain y value in the sky play day audio clip
                 // else its night play night audio clip
                 if(sun.transform.position.y > 0) {
-                    Debug.Log("day");
                     // play sun clip
                     SwitchAudio(dayLoop);
                 } else {
-                    Debug.Log("night");
                     // play night clip
                     SwitchAudio(nightLoop);
                 }
-                
+
             }
             else {
-                Debug.Log("checking sun position");
 
-                if(day) 
+                if(day)
                 {
-                    if(sun.transform.position.y < 0) 
+                    if(sun.transform.position.y < 0)
                     {
                         day = false;
-                        Debug.Log("night");
                         // play night clip
                         SwitchAudio(nightLoop);
                     }
                 }
-                else 
+                else
                 {
-                    if(sun.transform.position.y > 0) 
+                    if(sun.transform.position.y > 0)
                     {
                     day = true;
-                    Debug.Log("day");
                     // play sun clip
                     SwitchAudio(dayLoop);
-                    } 
+                    }
                 }
 
             }
