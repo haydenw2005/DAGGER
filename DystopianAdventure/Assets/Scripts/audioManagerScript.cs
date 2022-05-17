@@ -28,62 +28,53 @@ public class audioManagerScript : MonoBehaviour
         //Fetch the AudioSource from the GameObject
         m_AudioSource = GetComponent<AudioSource>();
         //Output the current clip's length
-        Debug.Log("Audio clip length : " + m_AudioSource.clip.length);
     }
 
     void Update()
     {
-        Debug.Log(inDarkForest);
         //Switch background music when you step into dark forest
         if (mainPlayer.transform.position.x < -129f && mainPlayer.transform.position.x > -741f && mainPlayer.transform.position.z < 1780f && mainPlayer.transform.position.z > 1061f)
         {
             if(!inDarkForest) {
                 SwitchAudio(darkForest);
                 inDarkForest = true;
-            }     
+            }
         }
-        else 
+        else
         // if not in dark forest
         {
             if(inDarkForest) {
                 inDarkForest = false;
-                Debug.Log("not in dark forest");
-                Debug.Log(sun.transform.position.y);
                 // if its sun is above a certain y value in the sky play day audio clip
                 // else its night play night audio clip
                 if(sun.transform.position.y > 0) {
-                    Debug.Log("day");
                     // play sun clip
                     SwitchAudio(dayLoop);
                 } else {
-                    Debug.Log("night");
                     // play night clip
                     SwitchAudio(nightLoop);
                 }
-                
+
             }
             else {
-                Debug.Log("checking sun position");
 
-                if(day) 
+                if(day)
                 {
-                    if(sun.transform.position.y < 0) 
+                    if(sun.transform.position.y < 0)
                     {
                         day = false;
-                        Debug.Log("night");
                         // play night clip
                         SwitchAudio(nightLoop);
                     }
                 }
-                else 
+                else
                 {
-                    if(sun.transform.position.y > 0) 
+                    if(sun.transform.position.y > 0)
                     {
                     day = true;
-                    Debug.Log("day");
                     // play sun clip
                     SwitchAudio(dayLoop);
-                    } 
+                    }
                 }
 
             }
@@ -93,7 +84,24 @@ public class audioManagerScript : MonoBehaviour
 
     void SwitchAudio(AudioClip backgroundSong)
     {
-        m_AudioSource.clip = backgroundSong;
-        m_AudioSource.Play();
+        /*
+        //If the current Audio clip is the original Audio clip, switch to the second clip
+        if (m_AudioSource.clip == m_AudioClip)
+        {
+            //Switch to the second clip
+            m_AudioSource.clip = m_AudioClip2;
+            //Play the second clip
+            m_AudioSource.Play();
+        }
+        //Otherwise, if the current Audio clip is the second clip, switch back
+        else if (m_AudioSource.clip == m_AudioClip2)
+        {
+            //Switch back to the original Audio clip
+            m_AudioSource.clip = m_AudioClip;
+            //Play the original clip
+            m_AudioSource.Play();
+        }
+        //Ouput the length of the current Audio clip
+        */
     }
 }

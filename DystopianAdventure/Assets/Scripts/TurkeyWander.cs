@@ -13,7 +13,6 @@ public class TurkeyWander : MonoBehaviour {
     private bool isRotatingLeft = false;
     private bool isRotatingRight = false;
     private bool isWalking = false;
-    private bool isAlive = true;
     private bool isDead = false;
     private bool danger = false;
     private IEnumerator wandering;
@@ -109,5 +108,27 @@ public class TurkeyWander : MonoBehaviour {
     void run()
     {
       danger = true;
+    }
+
+    void OnCollisionEnter(Collision other)
+    {
+        if(other.gameObject.name == "River")
+        {
+          Debug.Log("Swim");
+          Vector3 teleport = this.transform.position;
+          Debug.Log(teleport);
+          if(teleport.x < -75f)
+          {
+            teleport.x += -50.0f;
+          }
+          else
+          {
+            teleport.x += 50.0f;
+          }
+          teleport.y += 15.0f;
+          Debug.Log(teleport);
+          this.transform.position = teleport;
+          teleport = Vector3.zero;
+        }
     }
 }

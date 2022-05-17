@@ -8,8 +8,9 @@ public class SelectionManager : MonoBehaviour
   public float pickUpRange=5;
   public float moveForce = 250;
   public Transform holdParent;
+  public GameObject textMaker;
   private GameObject heldobj;
-
+  public InventorySystem inventory;
   // Update is called once per frame
 
   void Update()
@@ -18,22 +19,22 @@ public class SelectionManager : MonoBehaviour
     RaycastHit select;
     if(Physics.Raycast(playerAxis.transform.position, playerAxis.transform.forward, out select, pickUpRange))
     {
-      if(select.transform.gameObject.tag == "Selectable" || select.transform.gameObject.tag == "Player")
+      select.collider.SendMessage("HitByRay", SendMessageOptions.DontRequireReceiver);
+      if(select.collider.tag == "Lunchable" || select.collider.tag == "canPickUp" || select.collider.tag == "Selectable")
       {
-        select.collider.SendMessage("HitByRay", SendMessageOptions.DontRequireReceiver);
+        textMaker.SendMessage("canPickUp", select.transform.gameObject, SendMessageOptions.DontRequireReceiver);
       }
     }
 
-    if (Input.GetKeyDown(KeyCode.E))
+    if (Input.GetMouseButtonDown(0))
     {
       RaycastHit hit;
       if(Physics.Raycast(playerAxis.transform.position, playerAxis.transform.forward, out hit, pickUpRange))
       {
-        if(hit.transform.gameObject.tag == "Selectable" && hit.transform.gameObject.TryGetComponent<ItemObject>(out ItemObject item))
+        if(hit.transform.gameObject.tag == "Selectable" && hit.transform.gameObject.TryGetComponent<ItemObject>(out ItemObject item) && inventory.isFull(item) == false)
         {
           PickupObject(hit.transform.gameObject, item);
           //item.OnHandlePickupItem();
-
         }
         else if(hit.transform.gameObject.tag == "Lunchable")
         {
@@ -70,6 +71,8 @@ public class SelectionManager : MonoBehaviour
   {
     if (pickobj.GetComponent<Rigidbody>())
     {
+      Debug.Log(pickobj);
+      Debug.Log(item);
       Rigidbody objRig = pickobj.GetComponent<Rigidbody>();
       Collider objCollide = pickobj.GetComponent<Collider>();
       objCollide.enabled = false;

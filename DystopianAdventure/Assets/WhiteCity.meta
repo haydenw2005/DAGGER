@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 <<<<<<<< HEAD:DystopianAdventure/Assets/WhiteCity.meta
-guid: 8de54376a49eb184da32ec21365a3434
+guid: 24b86c0b9e41e1546ad199e90b929028
 folderAsset: yes
 DefaultImporter:
 ========
@@ -9,5 +9,5 @@ PrefabImporter:
 >>>>>>>> b4d4b394db1a426fce6454235113925e8f993fed:DystopianAdventure/Assets/PREFABS/Cow.prefab.meta
   externalObjects: {}
   userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+  assetBundleName:
+  assetBundleVariant:

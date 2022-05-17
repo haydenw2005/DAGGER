@@ -9,6 +9,10 @@ public class ChickenGod : MonoBehaviour
     public GameObject pig;
     public GameObject sheep;
     public GameObject cow;
+    public int xMin;
+    public int xMax;
+    public int zMin;
+    public int zMax;
     public int numTurkey;
     public int numPig;
     public int numSheep;
@@ -19,29 +23,29 @@ public class ChickenGod : MonoBehaviour
     {
       for (int i = 0; i <= numTurkey; i++)
         {
-          float randX = Random.Range(200,600);
-          float randZ = Random.Range(400, 1000);
+          float randX = Random.Range(xMin,xMax);
+          float randZ = Random.Range(zMin, zMax);
           Vector3 randPosition = new Vector3(randX, 70f, randZ);
           Instantiate(turkey, randPosition, OgTransform.rotation);
         }
       for (int i = 0; i <= numPig; i++)
         {
-          float randX = Random.Range(200,600);
-          float randZ = Random.Range(400, 1000);
+          float randX = Random.Range(xMin,xMax);
+          float randZ = Random.Range(zMin, zMax);
           Vector3 randPosition = new Vector3(randX, 70f, randZ);
           Instantiate(pig, randPosition, OgTransform.rotation);
         }
       for (int i = 0; i <= numSheep; i++)
         {
-          float randX = Random.Range(200,600);
-          float randZ = Random.Range(400, 1000);
+          float randX = Random.Range(xMin,xMax);
+          float randZ = Random.Range(zMin, zMax);
           Vector3 randPosition = new Vector3(randX, 70f, randZ);
           Instantiate(sheep, randPosition, OgTransform.rotation);
         }
       for (int i = 0; i <= numCow; i++)
         {
-          float randX = Random.Range(200,600);
-          float randZ = Random.Range(400, 1000);
+          float randX = Random.Range(xMin,xMax);
+          float randZ = Random.Range(zMin, zMax);
           Vector3 randPosition = new Vector3(randX, 70f, randZ);
           Instantiate(cow, randPosition, OgTransform.rotation);
         }

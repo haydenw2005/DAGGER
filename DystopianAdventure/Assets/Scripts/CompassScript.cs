@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class CompassScript : MonoBehaviour
 {
     public Transform playerStats;
+    //public Transform bikeStats;
     private Vector3 dir;
     public Text compassText;
 
