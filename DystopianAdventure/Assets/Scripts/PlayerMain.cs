@@ -23,6 +23,8 @@ public class PlayerMain : MonoBehaviour
     public float radius;
     public InventorySystem inventory;
     public HoverCarControl hoverCar;
+    public TeleportScript teleportPad;
+    //public TeleportScript teleport;
 
     public Vector3 currentPosition;
     //public float yAxisRotation; //save this
@@ -78,13 +80,17 @@ public class PlayerMain : MonoBehaviour
             }
             if (Input.GetKey(KeyCode.E) && inventory.slots[inventory.getCurrentSlot()-1].itemsInSlot.Count >= 1) {
                     inventory.slots[inventory.getCurrentSlot()-1].itemsInSlot[0].TryGetComponent<ItemObject>(out ItemObject item);
-                    Debug.Log(item.referenceItem.id);
                     if (item.referenceItem.id == "InventoryItem_Pork" || item.referenceItem.id == "InventoryItem_Chicken" || item.referenceItem.id == "InventoryItem_Steak" || item.referenceItem.id == "InventoryItem_Lamb") {
                         TakeHunger(-10);
                         Destroy(inventory.slots[inventory.getCurrentSlot()-1].itemsInSlot[0]);
                         InventorySystem.current.Remove();
                     } else if (item.referenceItem.id == "InventoryItem_BikeCrystal") {
                         if (hoverCar.switchSeats() == true) {  
+                            Destroy(inventory.slots[inventory.getCurrentSlot()-1].itemsInSlot[0]);
+                            InventorySystem.current.Remove();
+                        }
+                    } else if (item.referenceItem.id == "InventoryItem_TeleportCrystal") {
+                        if (teleportPad.turnOnTP() == true) {
                             Destroy(inventory.slots[inventory.getCurrentSlot()-1].itemsInSlot[0]);
                             InventorySystem.current.Remove();
                         }
@@ -164,7 +170,6 @@ public class PlayerMain : MonoBehaviour
 
     void OnCollisionEnter(Collision other)
     {
-
         if(other.gameObject.name == "River")
         {
             playerDeath();
@@ -172,6 +177,7 @@ public class PlayerMain : MonoBehaviour
     }
 
     private void playerDeath() {
+        //Death Animation
         Vector3 teleport = new Vector3(573, 55f, 601f);
         Player.transform.position = teleport;
         teleport = Vector3.zero;
