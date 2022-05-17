@@ -25,6 +25,7 @@ public class PlayerMain : MonoBehaviour
     public HoverCarControl hoverCar;
     public GameObject deathScreen;
     public GameObject aliveUI;
+    public TeleportScript teleportPad;
 
     public Vector3 currentPosition;
 
@@ -76,13 +77,17 @@ public class PlayerMain : MonoBehaviour
             }
             if (Input.GetKey(KeyCode.E) && inventory.slots[inventory.getCurrentSlot()-1].itemsInSlot.Count >= 1) {
                     inventory.slots[inventory.getCurrentSlot()-1].itemsInSlot[0].TryGetComponent<ItemObject>(out ItemObject item);
-                    Debug.Log(item.referenceItem.id);
-                    if (item.referenceItem.id == "InventoryItem_Pork" || item.referenceItem.id == "InventoryItem_Chicken") {
+                    if (item.referenceItem.id == "InventoryItem_Pork" || item.referenceItem.id == "InventoryItem_Chicken" || item.referenceItem.id == "InventoryItem_Steak" || item.referenceItem.id == "InventoryItem_Lamb") {
                         TakeHunger(-10);
                         Destroy(inventory.slots[inventory.getCurrentSlot()-1].itemsInSlot[0]);
                         InventorySystem.current.Remove();
                     } else if (item.referenceItem.id == "InventoryItem_BikeCrystal") {
                         if (hoverCar.switchSeats() == true) {  
+                            Destroy(inventory.slots[inventory.getCurrentSlot()-1].itemsInSlot[0]);
+                            InventorySystem.current.Remove();
+                        }
+                    } else if (item.referenceItem.id == "InventoryItem_TeleportCrystal") {
+                        if (teleportPad.turnOnTP() == true) {
                             Destroy(inventory.slots[inventory.getCurrentSlot()-1].itemsInSlot[0]);
                             InventorySystem.current.Remove();
                         }
@@ -116,6 +121,9 @@ public class PlayerMain : MonoBehaviour
         if (damage > 0) {
             ticksSinceDamage = 0;
         }
+        if(currentHealth <= 0) {
+            playerDeath();
+        }
     }
 
     public void TakeHunger(int hunger) {
@@ -147,7 +155,6 @@ public class PlayerMain : MonoBehaviour
 
     void OnCollisionEnter(Collision other)
     {
-
         if(other.gameObject.name == "River")
         {
             //Start the coroutine we define below named TimeCoroutine.
@@ -169,10 +176,19 @@ public class PlayerMain : MonoBehaviour
         // turn death screen off and turn on all things i turned off
         deathScreen.SetActive(false);
         aliveUI.SetActive(true);
-        Vector3 teleport = new Vector3(484f, 54f, 607f);
+        charController.enabled = true;
+        playerDeath();
+    }
+
+    private void playerDeath() {
+        //Death Animation
+        Vector3 teleport = new Vector3(573, 55f, 601f);
         Player.transform.position = teleport;
         teleport = Vector3.zero;
-        charController.enabled = true;
+        currentHealth = maxHealth;
+        healthBar.SetMaxHealth(maxHealth);
+        currentHunger = maxHunger;
+        hungerBar.SetMaxHunger(maxHunger);
     }
 
 }

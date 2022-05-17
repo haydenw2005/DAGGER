@@ -30,7 +30,7 @@ public class audioManagerScript : MonoBehaviour
     {
         //Fetch the AudioSource from the GameObject
         m_AudioSource = GetComponent<AudioSource>();
-        anInstance = hoverCar.GetComponent<HoverCarControl>();;
+        anInstance = hoverCar.GetComponent<HoverCarControl>();
     }
 
     void Update()

@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2c30153868041b4aa5d0a0eaa1430d4, type: 3}
+  m_Name: InventoryItem_Steak
+  m_EditorClassIdentifier: 
+  id: InventoryItem_Steak
+  displayName: Steak
+  icon: {fileID: 21300000, guid: 4b323755efcf39046a313df10ef721da, type: 3}
+  prefab: {fileID: 4179205776943551302, guid: 219e253d2043b4bf382f7fbe08130e26, type: 3}
+  render: {fileID: 0}
+  testObject: {fileID: 0}
