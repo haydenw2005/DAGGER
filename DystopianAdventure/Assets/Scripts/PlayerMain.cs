@@ -21,10 +21,12 @@ public class PlayerMain : MonoBehaviour
     public CharacterController charController;
     public GameObject Player;
     public float radius;
-
+    public InventorySystem inventory;
+    public HoverCarControl hoverCar;
+    public GameObject deathScreen;
+    public GameObject aliveUI;
 
     public Vector3 currentPosition;
-    //public float yAxisRotation; //save this
 
     void Start()
     {
@@ -38,9 +40,6 @@ public class PlayerMain : MonoBehaviour
         {
             LoadPlayer();
         }
-        //Cursor.visible = false;
-        //Cursor.lockState = CursorLockMode.locked;
-        //SaveData.current.Add(position);
     }
     private void TimeTickSystem_OnTick (object sender, TimeTickSystem.OnTickEventArgs e) {
         if (e.tick % hungerRate == 0 && currentHunger > 0){
@@ -63,18 +62,45 @@ public class PlayerMain : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("escape"))
-        {
-            TakeDamage(8);
-            if (!pauseMenu.activeSelf) {
-                pauseMenu.SetActive(true);
-                Time.timeScale = 0;
-            } else {
-                pauseMenu.SetActive(false);
-                Time.timeScale = 1;
+        if(Input.anyKeyDown) {
+            if (Input.GetKeyDown("escape"))
+            {
+                TakeDamage(8);
+                if (!pauseMenu.activeSelf) {
+                    pauseMenu.SetActive(true);
+                    Time.timeScale = 0;
+                } else {
+                    pauseMenu.SetActive(false);
+                    Time.timeScale = 1;
+                }
+            }
+            if (Input.GetKey(KeyCode.E) && inventory.slots[inventory.getCurrentSlot()-1].itemsInSlot.Count >= 1) {
+                    inventory.slots[inventory.getCurrentSlot()-1].itemsInSlot[0].TryGetComponent<ItemObject>(out ItemObject item);
+                    Debug.Log(item.referenceItem.id);
+                    if (item.referenceItem.id == "InventoryItem_Pork" || item.referenceItem.id == "InventoryItem_Chicken") {
+                        TakeHunger(-10);
+                        Destroy(inventory.slots[inventory.getCurrentSlot()-1].itemsInSlot[0]);
+                        InventorySystem.current.Remove();
+                    } else if (item.referenceItem.id == "InventoryItem_BikeCrystal") {
+                        if (hoverCar.switchSeats() == true) {  
+                            Destroy(inventory.slots[inventory.getCurrentSlot()-1].itemsInSlot[0]);
+                            InventorySystem.current.Remove();
+                        }
+                    }
+
             }
         }
-        //position = transform.position;
+
+        if(this.transform.position.x < -129f && this.transform.position.x > -741f 
+        && this.transform.position.z < 1780f && this.transform.position.z > 1061f)
+        {
+            RenderSettings.fog = true;
+        }
+        else 
+        {
+            RenderSettings.fog = false;
+        }
+
         Collider[] hitColliders = Physics.OverlapSphere(this.transform.position, radius);
         foreach (var hitCollider in hitColliders)
         {
@@ -113,21 +139,10 @@ public class PlayerMain : MonoBehaviour
         currentPosition.y = data.playerPosition[1];
         currentPosition.z = data.playerPosition[2];
 
-        //currentRotation.x = data.playerAngle[0];
-        //currentRotation.y = data.playerAngle[1];
-        //transform.rotation = currentRotation;
-
-        //currentRotation.Set(data.playerAngle[0], data.playerAngle[1], data.playerAngle[2], 1);
-        //transform.rotation.y = data.playerAngle;
         charController.enabled = false;
         charController.transform.position = new Vector3(data.playerPosition[0], data.playerPosition[1], data.playerPosition[2]);
         charController.enabled = true;
-        //transform.position = new Vector3(data.playerPosition[0], data.playerPosition[1], data.playerPosition[2]);
         transform.rotation = Quaternion.Euler(0f, data.playerAngle, 0f);
-        //transform.TransformPoint(new Vector3(data.playerPosition[0], data.playerPosition[1], data.playerPosition[2]));
-
-
-        //transform.rotation = Quaternion.Euler(0.0f, data.playerAngle, 0.0f);
     }
 
     void OnCollisionEnter(Collision other)
@@ -135,10 +150,29 @@ public class PlayerMain : MonoBehaviour
 
         if(other.gameObject.name == "River")
         {
-            Vector3 teleport = new Vector3(484f, 54f, 607f);
-            Player.transform.position = teleport;
-            teleport = Vector3.zero;
+            //Start the coroutine we define below named TimeCoroutine.
+            StartCoroutine(TimeCoroutine());
         }
+    }
+
+    IEnumerator TimeCoroutine()
+    {
+        // turn off ui turn on death screen
+        aliveUI.SetActive(false);
+        deathScreen.SetActive(true);
+
+        //turn off character movement
+        charController.enabled = false;
+
+        //yield on a new YieldInstruction that waits for 4 seconds.
+        yield return new WaitForSeconds(4);
+        // turn death screen off and turn on all things i turned off
+        deathScreen.SetActive(false);
+        aliveUI.SetActive(true);
+        Vector3 teleport = new Vector3(484f, 54f, 607f);
+        Player.transform.position = teleport;
+        teleport = Vector3.zero;
+        charController.enabled = true;
     }
 
 }

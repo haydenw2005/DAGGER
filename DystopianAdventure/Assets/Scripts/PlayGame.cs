@@ -8,7 +8,8 @@ public class PlayGame : MonoBehaviour
     public GameObject pauseMenu;
     
     public void StartGame() {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
+        SceneManager.LoadScene(0);
         Time.timeScale = 1;
         pauseMenu.SetActive(false);
     }
@@ -23,7 +24,8 @@ public class PlayGame : MonoBehaviour
         pauseMenu.SetActive(false);
     }
     public void BackToMenu() {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex-1);
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex-1);
+        SceneManager.LoadScene(1);
     }
 
     public void DeleteSave() {

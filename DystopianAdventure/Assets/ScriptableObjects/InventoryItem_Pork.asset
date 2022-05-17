@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2c30153868041b4aa5d0a0eaa1430d4, type: 3}
   m_Name: InventoryItem_Pork
   m_EditorClassIdentifier: 
-  id: InventoryItemPork
+  id: InventoryItem_Pork
   displayName: Pork
   icon: {fileID: 21300000, guid: adf92f5459022124193e381473dbcce6, type: 3}
   prefab: {fileID: 3517465817000159781, guid: ba43438e580714421b77702924702e2b, type: 3}
   render: {fileID: 0}
+  testObject: {fileID: 0}

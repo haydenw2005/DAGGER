@@ -23,7 +23,7 @@ public class InventorySystem : MonoBehaviour
         }
     }
     private void Update() {
-        if(Input.anyKeyDown) { // && Input.inputString != currentSlot.ToString()
+        if(Input.anyKeyDown) { // && Input.inputString != currentSlot.ToString()]
             switch (Input.inputString) {
                 case "1":
                     changeSlots(1);
@@ -47,11 +47,15 @@ public class InventorySystem : MonoBehaviour
                     break;
             }
         }
-        //try {
+
         if (slots[currentSlot-1].itemsInSlot.Count >= 1) {
             slots[currentSlot-1].itemsInSlot[0].TryGetComponent<ItemObject>(out ItemObject item);
             item.enableObject();
         }
+    }
+
+    public int getCurrentSlot() {
+        return currentSlot;
     }
 
     private void changeSlots(int lastSlot) {

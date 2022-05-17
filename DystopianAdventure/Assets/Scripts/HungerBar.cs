@@ -19,5 +19,16 @@ public class HungerBar : MonoBehaviour
         HungerFill.color = gradient.Evaluate(HungerSlider.normalizedValue);
     }
 
+    // public void TurnOff() {
+    //     HungerSlider.enabled = false;
+    //     HungerFill.enabled = false;
+    //     Debug.Log("off");
+
+    // }
+
+    // public void TurnOn() {
+    //     HungerSlider.enabled = true;
+    // }
+
     
 }

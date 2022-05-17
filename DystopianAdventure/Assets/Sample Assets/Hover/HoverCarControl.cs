@@ -25,6 +25,8 @@ public class HoverCarControl : MonoBehaviour
   public GameObject m_rightAirBrake;
   public Camera firstPersonCamera;
 
+  private bool hoverCarActivated = false;
+
   int m_layerMask;
 
 
@@ -98,26 +100,35 @@ public class HoverCarControl : MonoBehaviour
   
 
 
-    if (Input.GetKeyDown(KeyCode.E))
+    if (Input.GetKeyDown(KeyCode.E) && hoverCarActivated == true)
     {
-      if (heldobj == null && inCar == false)
-      {
-        RaycastHit hit;
-        if(Physics.Raycast(mainCamAxis.transform.position, mainCamAxis.transform.forward, out hit, pickUpRange))
-        {
-          if(hit.transform.gameObject.tag == "Player")
-          {
-            Debug.Log("Lemme in");
-            getInCar();
-          }
-        }
-      }
-      else {
-        getOutCar();
-      }
+      switchSeats();
     }
 
   }
+  
+  public bool switchSeats() {
+    if (heldobj == null && inCar == false) {
+      RaycastHit hit;
+      if(Physics.Raycast(mainCamAxis.transform.position, mainCamAxis.transform.forward, out hit, pickUpRange))
+      {
+        if(hit.transform.gameObject.tag == "Player")
+        {
+          if (hoverCarActivated == false) {
+            hoverCarActivated = true;
+            return true;
+          }
+          getInCar();
+        }
+      }
+    }
+    else {
+      getOutCar();
+    }
+    return false;
+  }
+
+  
 
   void FixedUpdate()
   {
