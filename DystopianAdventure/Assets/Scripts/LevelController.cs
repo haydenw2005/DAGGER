@@ -7,9 +7,10 @@ public class LevelController : MonoBehaviour
 {
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.name == "Teleport")
-        {
-            SceneManager.LoadScene(2);
-        }
+        //Debug.Log("ohhh brudha");
+        //if (other.gameObject.name == "Teleport")
+        //{
+        //    SceneManager.LoadScene(2);
+        //}
     }
 }

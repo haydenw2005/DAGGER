@@ -84,7 +84,24 @@ public class audioManagerScript : MonoBehaviour
 
     void SwitchAudio(AudioClip backgroundSong)
     {
-        m_AudioSource.clip = backgroundSong;
-        m_AudioSource.Play();
+        /*
+        //If the current Audio clip is the original Audio clip, switch to the second clip
+        if (m_AudioSource.clip == m_AudioClip)
+        {
+            //Switch to the second clip
+            m_AudioSource.clip = m_AudioClip2;
+            //Play the second clip
+            m_AudioSource.Play();
+        }
+        //Otherwise, if the current Audio clip is the second clip, switch back
+        else if (m_AudioSource.clip == m_AudioClip2)
+        {
+            //Switch back to the original Audio clip
+            m_AudioSource.clip = m_AudioClip;
+            //Play the original clip
+            m_AudioSource.Play();
+        }
+        //Ouput the length of the current Audio clip
+        */
     }
 }

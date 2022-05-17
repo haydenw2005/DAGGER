@@ -21,6 +21,10 @@ public class PlayerMain : MonoBehaviour
     public CharacterController charController;
     public GameObject Player;
     public float radius;
+    public InventorySystem inventory;
+    public HoverCarControl hoverCar;
+    public TeleportScript teleportPad;
+    //public TeleportScript teleport;
 
     public Vector3 currentPosition;
     //public float yAxisRotation; //save this
@@ -62,15 +66,36 @@ public class PlayerMain : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("escape"))
-        {
-            TakeDamage(8);
-            if (!pauseMenu.activeSelf) {
-                pauseMenu.SetActive(true);
-                Time.timeScale = 0;
-            } else {
-                pauseMenu.SetActive(false);
-                Time.timeScale = 1;
+        if(Input.anyKeyDown) {
+            if (Input.GetKeyDown("escape"))
+            {
+                TakeDamage(8);
+                if (!pauseMenu.activeSelf) {
+                    pauseMenu.SetActive(true);
+                    Time.timeScale = 0;
+                } else {
+                    pauseMenu.SetActive(false);
+                    Time.timeScale = 1;
+                }
+            }
+            if (Input.GetKey(KeyCode.E) && inventory.slots[inventory.getCurrentSlot()-1].itemsInSlot.Count >= 1) {
+                    inventory.slots[inventory.getCurrentSlot()-1].itemsInSlot[0].TryGetComponent<ItemObject>(out ItemObject item);
+                    if (item.referenceItem.id == "InventoryItem_Pork" || item.referenceItem.id == "InventoryItem_Chicken" || item.referenceItem.id == "InventoryItem_Steak" || item.referenceItem.id == "InventoryItem_Lamb") {
+                        TakeHunger(-10);
+                        Destroy(inventory.slots[inventory.getCurrentSlot()-1].itemsInSlot[0]);
+                        InventorySystem.current.Remove();
+                    } else if (item.referenceItem.id == "InventoryItem_BikeCrystal") {
+                        if (hoverCar.switchSeats() == true) {  
+                            Destroy(inventory.slots[inventory.getCurrentSlot()-1].itemsInSlot[0]);
+                            InventorySystem.current.Remove();
+                        }
+                    } else if (item.referenceItem.id == "InventoryItem_TeleportCrystal") {
+                        if (teleportPad.turnOnTP() == true) {
+                            Destroy(inventory.slots[inventory.getCurrentSlot()-1].itemsInSlot[0]);
+                            InventorySystem.current.Remove();
+                        }
+                    }
+
             }
         }
 
@@ -99,6 +124,9 @@ public class PlayerMain : MonoBehaviour
         }
         if (damage > 0) {
             ticksSinceDamage = 0;
+        }
+        if(currentHealth <= 0) {
+            playerDeath();
         }
     }
 
@@ -144,10 +172,19 @@ public class PlayerMain : MonoBehaviour
     {
         if(other.gameObject.name == "River")
         {
-            Vector3 teleport = new Vector3(484f, 54f, 607f);
-            Player.transform.position = teleport;
-            teleport = Vector3.zero;
+            playerDeath();
         }
+    }
+
+    private void playerDeath() {
+        //Death Animation
+        Vector3 teleport = new Vector3(573, 55f, 601f);
+        Player.transform.position = teleport;
+        teleport = Vector3.zero;
+        currentHealth = maxHealth;
+        healthBar.SetMaxHealth(maxHealth);
+        currentHunger = maxHunger;
+        hungerBar.SetMaxHunger(maxHunger);
     }
 
 }
