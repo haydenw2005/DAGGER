@@ -1,13 +1,13 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 <<<<<<<< HEAD:DystopianAdventure/Assets/WhiteCity/Materials.meta
-guid: 0edcacc9e5da89046ae21187061642d4
+guid: 914e8e0aefec09c4d82e9a059945ee54
+=======
+guid: 71ed22638c6f4f548b5a9b9f0b8d929e
+>>>>>>> af242ee4aa8cdb23a8b2f74a99a73f1ae36540e7
 folderAsset: yes
 DefaultImporter:
-========
-guid: ac12805abcc3ddd4b85d09d45abac825
-PrefabImporter:
->>>>>>>> b4d4b394db1a426fce6454235113925e8f993fed:DystopianAdventure/Assets/PREFABS/Sheep.prefab.meta
   externalObjects: {}
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+  userData:
+  assetBundleName:
+  assetBundleVariant:

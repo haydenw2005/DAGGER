@@ -38,50 +38,43 @@ public class audioManagerScript : MonoBehaviour
             if(!inDarkForest) {
                 SwitchAudio(darkForest);
                 inDarkForest = true;
-            }     
+            }
         }
-        else 
+        else
         // if not in dark forest
         {
             if(inDarkForest) {
                 inDarkForest = false;
-                Debug.Log("not in dark forest");
-                Debug.Log(sun.transform.position.y);
                 // if its sun is above a certain y value in the sky play day audio clip
                 // else its night play night audio clip
                 if(sun.transform.position.y > 0) {
-                    Debug.Log("day");
                     // play sun clip
                     SwitchAudio(dayLoop);
                 } else {
-                    Debug.Log("night");
                     // play night clip
                     SwitchAudio(nightLoop);
                 }
-                
+
             }
             else {
-                Debug.Log("checking sun position");
 
-                if(day) 
+                if(day)
                 {
-                    if(sun.transform.position.y < 0) 
+                    if(sun.transform.position.y < 0)
                     {
                         day = false;
-                        Debug.Log("night");
                         // play night clip
                         SwitchAudio(nightLoop);
                     }
                 }
-                else 
+                else
                 {
-                    if(sun.transform.position.y > 0) 
+                    if(sun.transform.position.y > 0)
                     {
                     day = true;
-                    Debug.Log("day");
                     // play sun clip
                     SwitchAudio(dayLoop);
-                    } 
+                    }
                 }
 
             }
