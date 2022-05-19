@@ -18,90 +18,133 @@ public class audioManagerScript : MonoBehaviour
 
     public GameObject mainPlayer;
     public GameObject sun;
-    public GameObject moon;
+    public GameObject hoverCamera;
 
     bool inDarkForest = false;
     bool day = true;
+    public bool inCar;
+    public GameObject hoverCar;
+    private HoverCarControl anInstance;
 
     void Start()
     {
         //Fetch the AudioSource from the GameObject
         m_AudioSource = GetComponent<AudioSource>();
-        //Output the current clip's length
+        anInstance = hoverCar.GetComponent<HoverCarControl>();
     }
 
     void Update()
     {
-        //Switch background music when you step into dark forest
-        if (mainPlayer.transform.position.x < -129f && mainPlayer.transform.position.x > -741f && mainPlayer.transform.position.z < 1780f && mainPlayer.transform.position.z > 1061f)
+        inCar = anInstance.getStatus();
+        //Switch background music when player steps into dark forest
+        if(inCar) 
         {
-            if(!inDarkForest) {
-                SwitchAudio(darkForest);
-                inDarkForest = true;
-            }
-        }
-        else
-        // if not in dark forest
-        {
-            if(inDarkForest) {
-                inDarkForest = false;
-                // if its sun is above a certain y value in the sky play day audio clip
-                // else its night play night audio clip
-                if(sun.transform.position.y > 0) {
-                    // play sun clip
-                    SwitchAudio(dayLoop);
-                } else {
-                    // play night clip
-                    SwitchAudio(nightLoop);
-                }
-
+            // check if hover car camera  is in forest
+            if (hoverCamera.transform.position.x < -129f && hoverCamera.transform.position.x > -741f && hoverCamera.transform.position.z < 1780f && hoverCamera.transform.position.z > 1061f) 
+            {
+                if(!inDarkForest) {
+                    SwitchAudio(darkForest);
+                    inDarkForest = true;
+                }    
             }
             else {
-
-                if(day)
-                {
-                    if(sun.transform.position.y < 0)
-                    {
-                        day = false;
-                        // play night clip
+                if(inDarkForest) {
+                    inDarkForest = false;
+                    if(sun.transform.position.y > 0) {
+                        SwitchAudio(dayLoop);
+                    } else {
                         SwitchAudio(nightLoop);
                     }
                 }
-                else
-                {
-                    if(sun.transform.position.y > 0)
+                else {
+                    if(day) 
                     {
-                    day = true;
-                    // play sun clip
-                    SwitchAudio(dayLoop);
+                        if(sun.transform.position.y < 0) 
+                        {
+                            day = false;
+                            SwitchAudio(nightLoop);
+                        }
+                    } else {
+                        if(sun.transform.position.y > 0) {
+                            day = true;
+                            SwitchAudio(dayLoop);
+                        } 
+                    }
+
+                }
+            }
+        }
+        else
+        {
+            // check if player is in forest
+            if (mainPlayer.transform.position.x < -129f && mainPlayer.transform.position.x > -741f && mainPlayer.transform.position.z < 1780f && mainPlayer.transform.position.z > 1061f)
+            {   
+                if(!inDarkForest) 
+                {
+                    SwitchAudio(darkForest);
+                    inDarkForest = true;
+                }  
+            }
+            else {
+                if(inDarkForest) {
+                    inDarkForest = false;
+                    if(sun.transform.position.y > 0) {
+                        SwitchAudio(dayLoop);
+                    } else {
+                        SwitchAudio(nightLoop);
                     }
                 }
+                else {
+                    if(day) 
+                    {
+                        if(sun.transform.position.y < 0) 
+                        {
+                            day = false;
+                            SwitchAudio(nightLoop);
+                        }
+                    } else {
+                        if(sun.transform.position.y > 0) {
+                            day = true;
+                            SwitchAudio(dayLoop);
+                        } 
+                    }
 
+                }
             }
 
         }
+
+
     }
 
     void SwitchAudio(AudioClip backgroundSong)
     {
-        /*
-        //If the current Audio clip is the original Audio clip, switch to the second clip
-        if (m_AudioSource.clip == m_AudioClip)
-        {
-            //Switch to the second clip
-            m_AudioSource.clip = m_AudioClip2;
-            //Play the second clip
-            m_AudioSource.Play();
+        m_AudioSource.clip = backgroundSong;
+        m_AudioSource.Play();
+    }
+
+    public void checkDay() {
+    if(inDarkForest) {
+        inDarkForest = false;
+        if(sun.transform.position.y > 0) {
+            SwitchAudio(dayLoop);
+        } else {
+            SwitchAudio(nightLoop);
         }
-        //Otherwise, if the current Audio clip is the second clip, switch back
-        else if (m_AudioSource.clip == m_AudioClip2)
+    } else {
+        if(day) 
         {
-            //Switch back to the original Audio clip
-            m_AudioSource.clip = m_AudioClip;
-            //Play the original clip
-            m_AudioSource.Play();
+            if(sun.transform.position.y < 0) 
+            {
+                day = false;
+                SwitchAudio(nightLoop);
+            }
+        } else {
+            if(sun.transform.position.y > 0) {
+                day = true;
+                SwitchAudio(dayLoop);
+            } 
         }
-        //Ouput the length of the current Audio clip
-        */
+        }
     }
 }

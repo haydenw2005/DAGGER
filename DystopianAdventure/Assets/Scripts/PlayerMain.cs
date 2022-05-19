@@ -23,11 +23,11 @@ public class PlayerMain : MonoBehaviour
     public float radius;
     public InventorySystem inventory;
     public HoverCarControl hoverCar;
+    public GameObject deathScreen;
+    public GameObject aliveUI;
     public TeleportScript teleportPad;
-    //public TeleportScript teleport;
 
     public Vector3 currentPosition;
-    //public float yAxisRotation; //save this
 
     void Start()
     {
@@ -41,9 +41,6 @@ public class PlayerMain : MonoBehaviour
         {
             LoadPlayer();
         }
-        //Cursor.visible = false;
-        //Cursor.lockState = CursorLockMode.locked;
-        //SaveData.current.Add(position);
     }
     private void TimeTickSystem_OnTick (object sender, TimeTickSystem.OnTickEventArgs e) {
         if (e.tick % hungerRate == 0 && currentHunger > 0){
@@ -109,7 +106,6 @@ public class PlayerMain : MonoBehaviour
             RenderSettings.fog = false;
         }
 
-        //position = transform.position;
         Collider[] hitColliders = Physics.OverlapSphere(this.transform.position, radius);
         foreach (var hitCollider in hitColliders)
         {
@@ -151,29 +147,37 @@ public class PlayerMain : MonoBehaviour
         currentPosition.y = data.playerPosition[1];
         currentPosition.z = data.playerPosition[2];
 
-        //currentRotation.x = data.playerAngle[0];
-        //currentRotation.y = data.playerAngle[1];
-        //transform.rotation = currentRotation;
-
-        //currentRotation.Set(data.playerAngle[0], data.playerAngle[1], data.playerAngle[2], 1);
-        //transform.rotation.y = data.playerAngle;
         charController.enabled = false;
         charController.transform.position = new Vector3(data.playerPosition[0], data.playerPosition[1], data.playerPosition[2]);
         charController.enabled = true;
-        //transform.position = new Vector3(data.playerPosition[0], data.playerPosition[1], data.playerPosition[2]);
         transform.rotation = Quaternion.Euler(0f, data.playerAngle, 0f);
-        //transform.TransformPoint(new Vector3(data.playerPosition[0], data.playerPosition[1], data.playerPosition[2]));
-
-
-        //transform.rotation = Quaternion.Euler(0.0f, data.playerAngle, 0.0f);
     }
 
     void OnCollisionEnter(Collision other)
     {
         if(other.gameObject.name == "River")
         {
-            playerDeath();
+            //Start the coroutine we define below named TimeCoroutine.
+            StartCoroutine(DeathScreenCoroutine());
         }
+    }
+
+    IEnumerator DeathScreenCoroutine()
+    {
+        // turn off ui turn on death screen
+        aliveUI.SetActive(false);
+        deathScreen.SetActive(true);
+
+        //turn off character movement
+        charController.enabled = false;
+
+        //yield on a new YieldInstruction that waits for 4 seconds.
+        yield return new WaitForSeconds(4);
+        // turn death screen off and turn on all things i turned off
+        deathScreen.SetActive(false);
+        aliveUI.SetActive(true);
+        charController.enabled = true;
+        playerDeath();
     }
 
     private void playerDeath() {

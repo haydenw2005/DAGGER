@@ -37,11 +37,12 @@ public class HoverCarControl : MonoBehaviour
   public Transform bikePosition;
   public GameObject mainChar;
 
-  private bool inCar;
+  public bool inCar;
   private GameObject heldobj;
   public HoverFollowCam HoverFollowCam;
   Camera m_MainCamera;
 
+  public GameObject notImportantUI;
 
 
   void Start()
@@ -104,6 +105,16 @@ public class HoverCarControl : MonoBehaviour
     {
       switchSeats();
     }
+
+    if(this.transform.position.x < -129f && this.transform.position.x > -741f
+        && this.transform.position.z < 1780f && this.transform.position.z > 1061f)
+        {
+            RenderSettings.fog = true;
+        }
+        else
+        {
+            RenderSettings.fog = false;
+        }
 
   }
   
@@ -182,6 +193,8 @@ public class HoverCarControl : MonoBehaviour
         //The Main first Camera is disabled
         m_MainCamera.enabled = false;
         mainChar.SetActive(false);
+        // turn off ui
+        notImportantUI.SetActive(false);
     }
     inCar = true;
   }
@@ -196,7 +209,15 @@ public class HoverCarControl : MonoBehaviour
         m_MainCamera.enabled = true;
         mainChar.SetActive(true);
         playerPosition.position = bikePosition.position + new Vector3(0.0f, 0.0f, -4.0f);
+        HoverFollowCam.transform.position = new Vector3(589.6f, 53.4f, 601.5f);
+        // turn on ui
+        notImportantUI.SetActive(true);
     }
     inCar = false;
+  }
+
+  public bool getStatus()
+  {
+    return inCar;
   }
 }
