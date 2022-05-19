@@ -44,9 +44,5 @@ public class CompassScript : MonoBehaviour
         else if (dir.z > 293.5 && dir.z < 338.5) {
             compassText.text = "SW";
         }
-        
-
-
-        //compassText.text = string.Format("{0:N0}", dir.z);
     }
 }
