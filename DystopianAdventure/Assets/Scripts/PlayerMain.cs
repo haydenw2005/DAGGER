@@ -96,12 +96,12 @@ public class PlayerMain : MonoBehaviour
             }
         }
 
-        if(this.transform.position.x < -129f && this.transform.position.x > -741f 
+        if(this.transform.position.x < -129f && this.transform.position.x > -741f
         && this.transform.position.z < 1780f && this.transform.position.z > 1061f)
         {
             RenderSettings.fog = true;
         }
-        else 
+        else
         {
             RenderSettings.fog = false;
         }
