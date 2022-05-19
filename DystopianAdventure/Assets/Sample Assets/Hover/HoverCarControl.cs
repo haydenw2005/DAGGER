@@ -42,6 +42,7 @@ public class HoverCarControl : MonoBehaviour
   public HoverFollowCam HoverFollowCam;
   Camera m_MainCamera;
 
+  public GameObject notImportantUI;
 
 
   void Start()
@@ -192,6 +193,8 @@ public class HoverCarControl : MonoBehaviour
         //The Main first Camera is disabled
         m_MainCamera.enabled = false;
         mainChar.SetActive(false);
+        // turn off ui
+        notImportantUI.SetActive(false);
     }
     inCar = true;
   }
@@ -207,6 +210,8 @@ public class HoverCarControl : MonoBehaviour
         mainChar.SetActive(true);
         playerPosition.position = bikePosition.position + new Vector3(0.0f, 0.0f, -4.0f);
         HoverFollowCam.transform.position = new Vector3(589.6f, 53.4f, 601.5f);
+        // turn on ui
+        notImportantUI.SetActive(true);
     }
     inCar = false;
   }

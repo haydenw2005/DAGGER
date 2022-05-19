@@ -158,11 +158,11 @@ public class PlayerMain : MonoBehaviour
         if(other.gameObject.name == "River")
         {
             //Start the coroutine we define below named TimeCoroutine.
-            StartCoroutine(TimeCoroutine());
+            StartCoroutine(DeathScreenCoroutine());
         }
     }
 
-    IEnumerator TimeCoroutine()
+    IEnumerator DeathScreenCoroutine()
     {
         // turn off ui turn on death screen
         aliveUI.SetActive(false);
