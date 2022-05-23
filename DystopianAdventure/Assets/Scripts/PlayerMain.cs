@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
+//Determines behavior for the main player and item interaction
 public class PlayerMain : MonoBehaviour
 {
     public int maxHealth = 100;
@@ -19,15 +20,12 @@ public class PlayerMain : MonoBehaviour
     public int regenHealth;
     public GameObject pauseMenu;
     public CharacterController charController;
-    public GameObject Player;
+    public GameObject player;
     public float radius;
     public InventorySystem inventory;
     public HoverCarControl hoverCar;
     public TeleportScript teleportPad;
-    //public TeleportScript teleport;
-
     public Vector3 currentPosition;
-    //public float yAxisRotation; //save this
 
     void Start()
     {
@@ -41,10 +39,8 @@ public class PlayerMain : MonoBehaviour
         {
             LoadPlayer();
         }
-        //Cursor.visible = false;
-        //Cursor.lockState = CursorLockMode.locked;
-        //SaveData.current.Add(position);
     }
+
     private void TimeTickSystem_OnTick (object sender, TimeTickSystem.OnTickEventArgs e) {
         if (e.tick % hungerRate == 0 && currentHunger > 0){
             TakeHunger(1);
@@ -81,9 +77,19 @@ public class PlayerMain : MonoBehaviour
             if (Input.GetKey(KeyCode.E) && inventory.slots[inventory.getCurrentSlot()-1].itemsInSlot.Count >= 1) {
                     inventory.slots[inventory.getCurrentSlot()-1].itemsInSlot[0].TryGetComponent<ItemObject>(out ItemObject item);
                     if (item.referenceItem.id == "InventoryItem_Pork" || item.referenceItem.id == "InventoryItem_Chicken" || item.referenceItem.id == "InventoryItem_Steak" || item.referenceItem.id == "InventoryItem_Lamb") {
-                        TakeHunger(-10);
-                        Destroy(inventory.slots[inventory.getCurrentSlot()-1].itemsInSlot[0]);
-                        InventorySystem.current.Remove();
+                        if (currentHunger < 90)
+                        {
+                            TakeHunger(-10);
+                            Destroy(inventory.slots[inventory.getCurrentSlot()-1].itemsInSlot[0]);
+                            InventorySystem.current.Remove();
+                        }
+                        else if (currentHunger < 100) {
+                            Debug.Log("hu");
+                            TakeHunger(currentHunger-100);
+                            Destroy(inventory.slots[inventory.getCurrentSlot()-1].itemsInSlot[0]);
+                            InventorySystem.current.Remove();
+                        }
+
                     } else if (item.referenceItem.id == "InventoryItem_BikeCrystal") {
                         if (hoverCar.switchSeats() == true) {  
                             Destroy(inventory.slots[inventory.getCurrentSlot()-1].itemsInSlot[0]);
@@ -131,6 +137,7 @@ public class PlayerMain : MonoBehaviour
     }
 
     public void TakeHunger(int hunger) {
+        
         currentHunger -= hunger;
         hungerBar.SetHunger(currentHunger);
     }
@@ -179,7 +186,7 @@ public class PlayerMain : MonoBehaviour
     private void playerDeath() {
         //Death Animation
         Vector3 teleport = new Vector3(573, 55f, 601f);
-        Player.transform.position = teleport;
+        player.transform.position = teleport;
         teleport = Vector3.zero;
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);

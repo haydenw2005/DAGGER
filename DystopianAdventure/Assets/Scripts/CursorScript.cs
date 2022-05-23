@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//Script which defines the cursor behavior.
 public class CursorScript : MonoBehaviour
 {
     public GameObject pauseMenu;
@@ -13,7 +14,7 @@ public class CursorScript : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
     }
 
-    // Update is called once per frame
+    //If pause menu is active, show cursor. If not, don't
     void Update()
     {
         if (pauseMenu.activeSelf == true) {
