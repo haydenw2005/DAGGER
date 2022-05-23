@@ -96,15 +96,14 @@ public class PlayerMain : MonoBehaviour
             }
         }
 
-        if(this.transform.position.x < -129f && this.transform.position.x > -741f
-        && this.transform.position.z < 1780f && this.transform.position.z > 1061f)
-        {
-            RenderSettings.fog = true;
-        }
+        if(this.transform.position.x < -101f && this.transform.position.x > -997f && this.transform.position.z < 1998f && this.transform.position.z > 998.7f)
+            {
+                RenderSettings.fog = true;
+            }
         else
-        {
-            RenderSettings.fog = false;
-        }
+            {
+                RenderSettings.fog = false;
+            }
 
         Collider[] hitColliders = Physics.OverlapSphere(this.transform.position, radius);
         foreach (var hitCollider in hitColliders)

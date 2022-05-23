@@ -35,50 +35,34 @@ public class audioManagerScript : MonoBehaviour
 
     void Update()
     {
+        // get instance of boolean that tells you if the player is in or out of hover car
         inCar = anInstance.getStatus();
         //Switch background music when player steps into dark forest
         if(inCar) 
         {
             // check if hover car camera  is in forest
-            if (hoverCamera.transform.position.x < -129f && hoverCamera.transform.position.x > -741f && hoverCamera.transform.position.z < 1780f && hoverCamera.transform.position.z > 1061f) 
+            if (hoverCamera.transform.position.x < -101f && hoverCamera.transform.position.x > -997f && hoverCamera.transform.position.z < 1998f && hoverCamera.transform.position.z > 998.7f) 
             {
+                // if hover car is in forest boundaries then check if they were already in forest and if they weren't then
+                // switch audio to dark forest audio, this excessive checking is to prevent the song from being repeatedly played.
                 if(!inDarkForest) {
                     SwitchAudio(darkForest);
+                    Debug.Log("1");
                     inDarkForest = true;
                 }    
             }
-            else {
-                if(inDarkForest) {
-                    inDarkForest = false;
-                    if(sun.transform.position.y > 0) {
-                        SwitchAudio(dayLoop);
-                    } else {
-                        SwitchAudio(nightLoop);
-                    }
-                }
-                else {
-                    if(day) 
-                    {
-                        if(sun.transform.position.y < 0) 
-                        {
-                            day = false;
-                            SwitchAudio(nightLoop);
-                        }
-                    } else {
-                        if(sun.transform.position.y > 0) {
-                            day = true;
-                            SwitchAudio(dayLoop);
-                        } 
-                    }
-
-                }
+            else 
+            {
+                checkDay();
             }
         }
         else
         {
             // check if player is in forest
-            if (mainPlayer.transform.position.x < -129f && mainPlayer.transform.position.x > -741f && mainPlayer.transform.position.z < 1780f && mainPlayer.transform.position.z > 1061f)
+            if (mainPlayer.transform.position.x < -101f && mainPlayer.transform.position.x > -997f && mainPlayer.transform.position.z < 1998f && mainPlayer.transform.position.z > 998.7f)
             {   
+                // if player is in forest boundaries then check if they were already in forest and if they weren't then
+                // switch audio to dark forest audio, this excessive checking is to prevent the song from being repeatedly played.
                 if(!inDarkForest) 
                 {
                     SwitchAudio(darkForest);
@@ -86,35 +70,9 @@ public class audioManagerScript : MonoBehaviour
                 }  
             }
             else {
-                if(inDarkForest) {
-                    inDarkForest = false;
-                    if(sun.transform.position.y > 0) {
-                        SwitchAudio(dayLoop);
-                    } else {
-                        SwitchAudio(nightLoop);
-                    }
-                }
-                else {
-                    if(day) 
-                    {
-                        if(sun.transform.position.y < 0) 
-                        {
-                            day = false;
-                            SwitchAudio(nightLoop);
-                        }
-                    } else {
-                        if(sun.transform.position.y > 0) {
-                            day = true;
-                            SwitchAudio(dayLoop);
-                        } 
-                    }
-
-                }
+                checkDay();
             }
-
         }
-
-
     }
 
     void SwitchAudio(AudioClip backgroundSong)
@@ -124,27 +82,27 @@ public class audioManagerScript : MonoBehaviour
     }
 
     public void checkDay() {
-    if(inDarkForest) {
-        inDarkForest = false;
-        if(sun.transform.position.y > 0) {
-            SwitchAudio(dayLoop);
-        } else {
-            SwitchAudio(nightLoop);
-        }
-    } else {
-        if(day) 
-        {
-            if(sun.transform.position.y < 0) 
-            {
-                day = false;
+        if(inDarkForest) {
+            inDarkForest = false;
+            if(sun.transform.position.y > 0) {
+                SwitchAudio(dayLoop);
+            } else {
                 SwitchAudio(nightLoop);
             }
         } else {
-            if(sun.transform.position.y > 0) {
-                day = true;
-                SwitchAudio(dayLoop);
-            } 
-        }
+            if(day) 
+            {
+                if(sun.transform.position.y < 0) 
+                {
+                    day = false;
+                    SwitchAudio(nightLoop);
+                }
+            } else {
+                if(sun.transform.position.y > 0) {
+                    day = true;
+                    SwitchAudio(dayLoop);
+                } 
+            }
         }
     }
 }
