@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
+//Determines behavior for the main player and item interaction
 public class PlayerMain : MonoBehaviour
 {
     public int maxHealth = 100;
@@ -19,14 +20,13 @@ public class PlayerMain : MonoBehaviour
     public int regenHealth;
     public GameObject pauseMenu;
     public CharacterController charController;
-    public GameObject Player;
+    public GameObject player;
     public float radius;
     public InventorySystem inventory;
     public HoverCarControl hoverCar;
     public GameObject deathScreen;
     public GameObject aliveUI;
     public TeleportScript teleportPad;
-
     public Vector3 currentPosition;
 
     void Start()
@@ -42,6 +42,7 @@ public class PlayerMain : MonoBehaviour
             LoadPlayer();
         }
     }
+
     private void TimeTickSystem_OnTick (object sender, TimeTickSystem.OnTickEventArgs e) {
         if (e.tick % hungerRate == 0 && currentHunger > 0){
             TakeHunger(1);
@@ -101,9 +102,9 @@ public class PlayerMain : MonoBehaviour
             RenderSettings.fog = true;
         }
         else
-        {
-            RenderSettings.fog = false;
-        }
+            {
+                RenderSettings.fog = false;
+            }
 
         Collider[] hitColliders = Physics.OverlapSphere(this.transform.position, radius);
         foreach (var hitCollider in hitColliders)
@@ -130,6 +131,7 @@ public class PlayerMain : MonoBehaviour
     }
 
     public void TakeHunger(int hunger) {
+
         currentHunger -= hunger;
         hungerBar.SetHunger(currentHunger);
     }
@@ -186,7 +188,7 @@ public class PlayerMain : MonoBehaviour
     private void playerDeath() {
         //Death Animation
         Vector3 teleport = new Vector3(573, 55f, 601f);
-        Player.transform.position = teleport;
+        player.transform.position = teleport;
         teleport = Vector3.zero;
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
