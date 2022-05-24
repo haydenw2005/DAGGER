@@ -14,6 +14,8 @@ public class TitleMenuScript : MonoBehaviour
 
     void Start()
     {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         DisableLoadGame();
     }
 
