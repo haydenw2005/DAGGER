@@ -26,10 +26,10 @@ public class SelectionManager : MonoBehaviour
       }
     }
 
-    if (Input.GetMouseButtonDown(0))
+    if (Input.GetKeyDown("f"))
     {
       RaycastHit hit;
-      if(Physics.Raycast(playerAxis.transform.position, playerAxis.transform.forward, out hit, pickUpRange))
+      if(Physics.Raycast(Camera.main.ViewportPointToRay(new Vector3(0.5F, 0.5F, 0)), out hit, pickUpRange))
       {
         if(hit.transform.gameObject.tag == "Selectable" && hit.transform.gameObject.TryGetComponent<ItemObject>(out ItemObject item) && inventory.isFull(item) == false)
         {

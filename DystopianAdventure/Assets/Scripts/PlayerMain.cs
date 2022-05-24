@@ -76,26 +76,25 @@ public class PlayerMain : MonoBehaviour
                 }
             }
             if (Input.GetKey(KeyCode.E) && inventory.slots[inventory.getCurrentSlot()-1].itemsInSlot.Count >= 1) {
-                    inventory.slots[inventory.getCurrentSlot()-1].itemsInSlot[0].TryGetComponent<ItemObject>(out ItemObject item);
-                    if (item.referenceItem.id == "InventoryItem_Pork" || item.referenceItem.id == "InventoryItem_Chicken" || item.referenceItem.id == "InventoryItem_Steak" || item.referenceItem.id == "InventoryItem_Lamb") {
-                        TakeHunger(-10);
-                        Destroy(inventory.slots[inventory.getCurrentSlot()-1].itemsInSlot[0]);
-                        InventorySystem.current.Remove();
-                    } else if (item.referenceItem.id == "InventoryItem_BikeCrystal") {
-                        if (hoverCar.switchSeats() == true) {  
-                            Destroy(inventory.slots[inventory.getCurrentSlot()-1].itemsInSlot[0]);
-                            InventorySystem.current.Remove();
-                        }
-                    } else if (item.referenceItem.id == "InventoryItem_TeleportCrystal") {
-                        if (teleportPad.turnOnTP() == true) {
-                            Destroy(inventory.slots[inventory.getCurrentSlot()-1].itemsInSlot[0]);
-                            InventorySystem.current.Remove();
-                        }
-                    }
-
+              inventory.slots[inventory.getCurrentSlot()-1].itemsInSlot[0].TryGetComponent<ItemObject>(out ItemObject item);
+              if (item.referenceItem.id == "InventoryItem_Pork" || item.referenceItem.id == "InventoryItem_Chicken" || item.referenceItem.id == "InventoryItem_Steak" || item.referenceItem.id == "InventoryItem_Lamb") {
+                  TakeHunger(-10);
+                  Destroy(inventory.slots[inventory.getCurrentSlot()-1].itemsInSlot[0]);
+                  InventorySystem.current.Remove();
+              } else if (item.referenceItem.id == "InventoryItem_BikeCrystal") {
+                  if (hoverCar.switchSeats() == true) {
+                      Destroy(inventory.slots[inventory.getCurrentSlot()-1].itemsInSlot[0]);
+                      GameObject.Find("/Canvas/AliveUI/ImportantUI/MissionPrompt").SendMessage("MissionOne");
+                      InventorySystem.current.Remove();
+                  }
+              } else if (item.referenceItem.id == "InventoryItem_TeleportCrystal") {
+                  if (teleportPad.turnOnTP() == true) {
+                      Destroy(inventory.slots[inventory.getCurrentSlot()-1].itemsInSlot[0]);
+                      InventorySystem.current.Remove();
+                  }
+              }
             }
         }
-
         if(this.transform.position.x < -129f && this.transform.position.x > -741f
         && this.transform.position.z < 1780f && this.transform.position.z > 1061f)
         {
@@ -110,6 +109,10 @@ public class PlayerMain : MonoBehaviour
         foreach (var hitCollider in hitColliders)
         {
           hitCollider.SendMessage("run", SendMessageOptions.DontRequireReceiver);
+        }
+        if(inventory.slots[inventory.getCurrentSlot()-1].itemsInSlot.Count > 0)
+        {
+          GameObject.Find("/Canvas/AliveUI/NotImportantUI/InteractText").SendMessage("currentHeld", inventory.slots[inventory.getCurrentSlot()-1].itemsInSlot[0]);
         }
     }
 
