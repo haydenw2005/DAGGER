@@ -11,6 +11,7 @@ public class RenderBushes : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //Randomly generates/instantiates bush details within a given area
         rb = BushPrefab.GetComponent<Rigidbody>();
         rb.isKinematic = false;
         for (int i = 0; i <= 100; i++)
