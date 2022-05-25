@@ -20,7 +20,7 @@ public class SelectionManager : MonoBehaviour
     if(Physics.Raycast(playerAxis.transform.position, playerAxis.transform.forward, out select, pickUpRange))
     {
       select.collider.SendMessage("HitByRay", SendMessageOptions.DontRequireReceiver);
-      if(select.collider.tag == "Lunchable" || select.collider.tag == "canPickUp" || select.collider.tag == "Selectable")
+      if(select.collider.tag == "Lunchable" || select.collider.tag == "Food" || select.collider.tag == "Selectable")
       {
         textMaker.SendMessage("canPickUp", select.transform.gameObject, SendMessageOptions.DontRequireReceiver);
       }

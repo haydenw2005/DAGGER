@@ -8,8 +8,8 @@ public class TextManager : MonoBehaviour
     public Text upTxt;
     public Text downTxt;
     private bool isHovered;
-    private bool clickSelect;
-    private bool eSelect;
+    private bool fSelect;
+    private bool fKill;
     private GameObject heldObj = null;
 
     void Start()
@@ -23,10 +23,15 @@ public class TextManager : MonoBehaviour
     {
       if(isHovered)
       {
-        if(clickSelect)
+        if(fSelect)
         {
           upTxt.text = "Press F to Pick Up";
-          clickSelect = false;
+          fSelect = false;
+        }
+        else if(fKill)
+        {
+          upTxt.text = "Press F to kill";
+          fKill = false;
         }
         isHovered = false;
       }
@@ -44,6 +49,11 @@ public class TextManager : MonoBehaviour
         {
           downTxt.text = "Bring to Telepad and Press E to Activate";
         }
+        else if(heldObj.name == "SausageSlice(Clone)" || heldObj.name == "Ham(Clone)"
+        || heldObj.name == "Steak(Clone)" || heldObj.name == "WholeBirdRaw(Clone)")
+        {
+          downTxt.text = "Press E to Eat";
+        }
         else
         {
           downTxt.text = "Press Q to Drop";
@@ -58,10 +68,14 @@ public class TextManager : MonoBehaviour
 
     void canPickUp(GameObject select)
     {
+      isHovered = true;
       if(select.tag == "Selectable")
       {
-        isHovered = true;
-        clickSelect = true;
+        fSelect = true;
+      }
+      else if(select.tag == "Lunchable")
+      {
+        fKill = true;
       }
     }
 

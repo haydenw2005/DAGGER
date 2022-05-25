@@ -9,6 +9,7 @@ TagManager:
   - hoverCar
   - Secondary Camera
   - Lunchable
+  - Food
   layers:
   - Default
   - TransparentFX
@@ -45,4 +46,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Food
+    uniqueID: 2744150539
     locked: 0

@@ -96,8 +96,7 @@ public class PlayerMain : MonoBehaviour
               }
             }
         }
-        if(this.transform.position.x < -129f && this.transform.position.x > -741f
-        && this.transform.position.z < 1780f && this.transform.position.z > 1061f)
+        if(this.transform.position.x < -101f && this.transform.position.x > -997f && this.transform.position.z < 1998f && this.transform.position.z > 998.7f)
         {
             RenderSettings.fog = true;
         }
