@@ -5,11 +5,20 @@ using UnityEngine;
 public class LightCycler : MonoBehaviour
 {
 	public float rotateSpeed;
+	public Light sunlight;
 
 	// Update is called once per frame
 	void Update()
 	{
 		transform.RotateAround(Vector3.zero,Vector3.right,rotateSpeed*Time.deltaTime);
 		transform.LookAt(Vector3.zero);
+		if(this.transform.position.y < 0)
+		{
+			sunlight.enabled = false;
+		}
+		else
+		{
+			sunlight.enabled = true;
+		}
 	}
 }

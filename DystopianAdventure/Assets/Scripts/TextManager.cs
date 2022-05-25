@@ -5,32 +5,54 @@ using UnityEngine.UI;
 
 public class TextManager : MonoBehaviour
 {
-    public Text txt;
+    public Text upTxt;
+    public Text downTxt;
     private bool isHovered;
-    private bool isBox;
+    private bool clickSelect;
+    private bool eSelect;
+    private GameObject heldObj = null;
 
     void Start()
     {
       isHovered = false;
-      txt.text = "";
+      upTxt.text = "";
+      downTxt.text = "";
     }
 
     void Update()
     {
-      if(isHovered && isBox)
+      if(isHovered)
       {
-        txt.text = "Press E to Pick Up";
-        isHovered = false;
-        isBox = false;
-      }
-      else if(isHovered)
-      {
-        txt.text = "Click to Kill";
+        if(clickSelect)
+        {
+          upTxt.text = "Press F to Pick Up";
+          clickSelect = false;
+        }
         isHovered = false;
       }
       else
       {
-        txt.text = "";
+        upTxt.text = "";
+      }
+      if(heldObj != null)
+      {
+        if(heldObj.name == "BikeCrystal")
+        {
+          downTxt.text =  "Bring to Bike and Press E to Enter";
+        }
+        else if(heldObj.name == "TeleCrystal")
+        {
+          downTxt.text = "Bring to Telepad and Press E to Activate";
+        }
+        else
+        {
+          downTxt.text = "Press Q to Drop";
+        }
+        heldObj = null;
+      }
+      else
+      {
+        downTxt.text = "";
       }
     }
 
@@ -39,11 +61,12 @@ public class TextManager : MonoBehaviour
       if(select.tag == "Selectable")
       {
         isHovered = true;
-        isBox = true;
+        clickSelect = true;
       }
-      else
-      {
-        isHovered = true;
-      }
+    }
+
+    void currentHeld(GameObject heldItem)
+    {
+      heldObj = heldItem;
     }
 }

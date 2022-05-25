@@ -8,13 +8,13 @@ public class TeleportScript : MonoBehaviour
     private bool isActivated = false;
     private ParticleSystem ps;
     public Transform mainCamAxis;
-    public float pickUpRange = 10;
+    public float pickUpRange = 17;
 
     void Start()
     {
         ps = GetComponent<ParticleSystem>();
         ps.Stop();
-        
+
     }
 
     public bool turnOnTP() {
@@ -26,6 +26,7 @@ public class TeleportScript : MonoBehaviour
                 {
                     isActivated = true;
                     Debug.Log("Activated");
+                    GameObject.Find("/Canvas/AliveUI/ImportantUI/MissionPrompt").SendMessage("MissionThree");
                     ps.Play();
                     return true;
                 }

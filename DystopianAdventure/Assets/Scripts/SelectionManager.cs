@@ -26,10 +26,10 @@ public class SelectionManager : MonoBehaviour
       }
     }
 
-    if (Input.GetMouseButtonDown(0))
+    if (Input.GetKeyDown("f"))
     {
       RaycastHit hit;
-      if(Physics.Raycast(playerAxis.transform.position, playerAxis.transform.forward, out hit, pickUpRange))
+      if(Physics.Raycast(Camera.main.ViewportPointToRay(new Vector3(0.5F, 0.5F, 0)), out hit, pickUpRange))
       {
         if(hit.transform.gameObject.tag == "Selectable" && hit.transform.gameObject.TryGetComponent<ItemObject>(out ItemObject item) && inventory.isFull(item) == false)
         {
@@ -74,11 +74,17 @@ public class SelectionManager : MonoBehaviour
       Debug.Log(pickobj);
       Debug.Log(item);
       Rigidbody objRig = pickobj.GetComponent<Rigidbody>();
+      //Collider objCollide = null;
       Collider objCollide = pickobj.GetComponent<Collider>();
       objCollide.enabled = false;
+      /*foreach(Collider c in GetComponentInChildren<MeshCollider>()) {
+        c.enabled = true;
+      }  */
+      
       objRig.useGravity = false;
       objRig.drag = 20;
       objRig.transform.parent = holdParent;
+      //pickobj.transform = playerAxis + Vector3(10, 0,0);
       heldobj = pickobj;
       StartCoroutine(timedPickup(0.25f, item));
       //item.OnHandlePickupItem();
@@ -91,6 +97,12 @@ public class SelectionManager : MonoBehaviour
     Rigidbody heldRig = objectToDrop.GetComponent<Rigidbody>();
     Collider heldCollide = objectToDrop.GetComponent<Collider>();
     heldCollide.enabled = true;
+    
+    /*
+    foreach(Collider c in GetComponentInChildren<MeshCollider>()) {
+      c.enabled = true;
+    } */
+    
     heldRig.useGravity = true;
     heldRig.drag = 1;
     objectToDrop.transform.parent= null;
