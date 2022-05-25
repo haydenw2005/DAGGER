@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
+//Determines behavior for the main player and item interaction
 public class PlayerMain : MonoBehaviour
 {
     public int maxHealth = 100;
@@ -19,14 +20,13 @@ public class PlayerMain : MonoBehaviour
     public int regenHealth;
     public GameObject pauseMenu;
     public CharacterController charController;
-    public GameObject Player;
+    public GameObject player;
     public float radius;
     public InventorySystem inventory;
     public HoverCarControl hoverCar;
     public GameObject deathScreen;
     public GameObject aliveUI;
     public TeleportScript teleportPad;
-
     public Vector3 currentPosition;
 
     void Start()
@@ -42,6 +42,7 @@ public class PlayerMain : MonoBehaviour
             LoadPlayer();
         }
     }
+
     private void TimeTickSystem_OnTick (object sender, TimeTickSystem.OnTickEventArgs e) {
         if (e.tick % hungerRate == 0 && currentHunger > 0){
             TakeHunger(1);
@@ -76,40 +77,43 @@ public class PlayerMain : MonoBehaviour
                 }
             }
             if (Input.GetKey(KeyCode.E) && inventory.slots[inventory.getCurrentSlot()-1].itemsInSlot.Count >= 1) {
-                    inventory.slots[inventory.getCurrentSlot()-1].itemsInSlot[0].TryGetComponent<ItemObject>(out ItemObject item);
-                    if (item.referenceItem.id == "InventoryItem_Pork" || item.referenceItem.id == "InventoryItem_Chicken" || item.referenceItem.id == "InventoryItem_Steak" || item.referenceItem.id == "InventoryItem_Lamb") {
-                        TakeHunger(-10);
-                        Destroy(inventory.slots[inventory.getCurrentSlot()-1].itemsInSlot[0]);
-                        InventorySystem.current.Remove();
-                    } else if (item.referenceItem.id == "InventoryItem_BikeCrystal") {
-                        if (hoverCar.switchSeats() == true) {  
-                            Destroy(inventory.slots[inventory.getCurrentSlot()-1].itemsInSlot[0]);
-                            InventorySystem.current.Remove();
-                        }
-                    } else if (item.referenceItem.id == "InventoryItem_TeleportCrystal") {
-                        if (teleportPad.turnOnTP() == true) {
-                            Destroy(inventory.slots[inventory.getCurrentSlot()-1].itemsInSlot[0]);
-                            InventorySystem.current.Remove();
-                        }
-                    }
-
+              inventory.slots[inventory.getCurrentSlot()-1].itemsInSlot[0].TryGetComponent<ItemObject>(out ItemObject item);
+              if (item.referenceItem.id == "InventoryItem_Pork" || item.referenceItem.id == "InventoryItem_Chicken" || item.referenceItem.id == "InventoryItem_Steak" || item.referenceItem.id == "InventoryItem_Lamb") {
+                  TakeHunger(-10);
+                  Destroy(inventory.slots[inventory.getCurrentSlot()-1].itemsInSlot[0]);
+                  InventorySystem.current.Remove();
+              } else if (item.referenceItem.id == "InventoryItem_BikeCrystal") {
+                  if (hoverCar.switchSeats() == true) {
+                      Destroy(inventory.slots[inventory.getCurrentSlot()-1].itemsInSlot[0]);
+                      GameObject.Find("/Canvas/AliveUI/ImportantUI/MissionPrompt").SendMessage("MissionOne");
+                      InventorySystem.current.Remove();
+                  }
+              } else if (item.referenceItem.id == "InventoryItem_TeleportCrystal") {
+                  if (teleportPad.turnOnTP() == true) {
+                      Destroy(inventory.slots[inventory.getCurrentSlot()-1].itemsInSlot[0]);
+                      InventorySystem.current.Remove();
+                  }
+              }
             }
         }
-
         if(this.transform.position.x < -129f && this.transform.position.x > -741f
         && this.transform.position.z < 1780f && this.transform.position.z > 1061f)
         {
             RenderSettings.fog = true;
         }
         else
-        {
-            RenderSettings.fog = false;
-        }
+            {
+                RenderSettings.fog = false;
+            }
 
         Collider[] hitColliders = Physics.OverlapSphere(this.transform.position, radius);
         foreach (var hitCollider in hitColliders)
         {
           hitCollider.SendMessage("run", SendMessageOptions.DontRequireReceiver);
+        }
+        if(inventory.slots[inventory.getCurrentSlot()-1].itemsInSlot.Count > 0)
+        {
+          GameObject.Find("/Canvas/AliveUI/NotImportantUI/InteractText").SendMessage("currentHeld", inventory.slots[inventory.getCurrentSlot()-1].itemsInSlot[0]);
         }
     }
 
@@ -127,6 +131,7 @@ public class PlayerMain : MonoBehaviour
     }
 
     public void TakeHunger(int hunger) {
+
         currentHunger -= hunger;
         hungerBar.SetHunger(currentHunger);
     }
@@ -183,7 +188,7 @@ public class PlayerMain : MonoBehaviour
     private void playerDeath() {
         //Death Animation
         Vector3 teleport = new Vector3(573, 55f, 601f);
-        Player.transform.position = teleport;
+        player.transform.position = teleport;
         teleport = Vector3.zero;
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);

@@ -99,6 +99,7 @@ public class TurkeyWander : MonoBehaviour {
 
     void KillChicken()
     {
+      Debug.Log("killed");
       StopCoroutine(Wander());
       isDead = true;
       anim.SetInteger("Moving", 0);

@@ -14,7 +14,7 @@ public class TeleportScript : MonoBehaviour
     {
         ps = GetComponent<ParticleSystem>();
         ps.Stop();
-        
+
     }
 
     public bool turnOnTP() {
@@ -26,6 +26,7 @@ public class TeleportScript : MonoBehaviour
                 {
                     isActivated = true;
                     Debug.Log("Activated");
+                    GameObject.Find("/Canvas/AliveUI/ImportantUI/MissionPrompt").SendMessage("MissionThree");
                     ps.Play();
                     return true;
                 }
