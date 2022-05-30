@@ -19,11 +19,13 @@ public class PlayerMain : MonoBehaviour
     public int regenWait;
     public int regenHealth;
     public GameObject pauseMenu;
+    public MissionManager missionGuide;
     public CharacterController charController;
     public GameObject player;
     public float radius;
     public InventorySystem inventory;
     public HoverCarControl hoverCar;
+    public Image crosshair;
     public GameObject deathScreen;
     public GameObject aliveUI;
     public TeleportScript teleportPad;
@@ -71,9 +73,12 @@ public class PlayerMain : MonoBehaviour
                 TakeDamage(8);
                 if (!pauseMenu.activeSelf) {
                     pauseMenu.SetActive(true);
+                    missionGuide.DisableGuide();
+                    crosshair.enabled = false;
                     Time.timeScale = 0;
                 } else {
                     pauseMenu.SetActive(false);
+                    crosshair.enabled = true;
                     Time.timeScale = 1;
                 }
             }
@@ -87,7 +92,6 @@ public class PlayerMain : MonoBehaviour
               } else if (item.referenceItem.id == "InventoryItem_BikeCrystal") {
                   if (hoverCar.switchSeats() == true) {
                       Destroy(currentItem);
-                      GameObject.Find("/Canvas/AliveUI/ImportantUI/MissionPrompt").SendMessage("MissionOne");
                       InventorySystem.current.Remove();
                   }
               } else if (item.referenceItem.id == "InventoryItem_TeleportCrystal") {
@@ -101,7 +105,7 @@ public class PlayerMain : MonoBehaviour
                         InventorySystem.current.Remove();
                     }
               }
-            }
+            } 
         }
         if(this.transform.position.x < -129f && this.transform.position.x > -741f
         && this.transform.position.z < 1780f && this.transform.position.z > 1061f)
@@ -120,7 +124,7 @@ public class PlayerMain : MonoBehaviour
         }
         if(inventory.slots[inventory.getCurrentSlot()-1].itemsInSlot.Count > 0)
         {
-          GameObject.Find("/Canvas/AliveUI/NotImportantUI/InteractText").SendMessage("currentHeld", inventory.slots[inventory.getCurrentSlot()-1].itemsInSlot[0]);
+          GameObject.Find("/Canvas/AliveUI/ImportantUI/TopText").SendMessage("currentHeld", inventory.slots[inventory.getCurrentSlot()-1].itemsInSlot[0]);
         }
     }
 
@@ -201,6 +205,10 @@ public class PlayerMain : MonoBehaviour
         healthBar.SetMaxHealth(maxHealth);
         currentHunger = maxHunger;
         hungerBar.SetMaxHunger(maxHunger);
+    }
+
+    public void startCouroutine() {
+        StartCoroutine(DeathScreenCoroutine());
     }
 
 }

@@ -236,7 +236,7 @@ GameObject:
   - component: {fileID: -6014200142286682977}
   m_Layer: 7
   m_Name: Steak
-  m_TagString: Selectable
+  m_TagString: Meat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

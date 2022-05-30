@@ -9,6 +9,8 @@ TagManager:
   - hoverCar
   - Secondary Camera
   - Lunchable
+  - Meat
+  - Activation
   layers:
   - Default
   - TransparentFX

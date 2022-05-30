@@ -26,7 +26,7 @@ public class TeleportScript : MonoBehaviour
                 {
                     isActivated = true;
                     Debug.Log("Activated");
-                    GameObject.Find("/Canvas/AliveUI/ImportantUI/MissionPrompt").SendMessage("MissionThree");
+                    GameObject.Find("/Canvas/AliveUI/ImportantUI/GuideHint").SendMessage("MissionSix");
                     ps.Play();
                     return true;
                 }

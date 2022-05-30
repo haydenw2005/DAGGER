@@ -28,7 +28,7 @@ public class RadarScript : MonoBehaviour
                     Debug.Log("Activated");
                     GetComponent<Animator>().enabled = true;
                     radarLight.color = Color.green;
-                    //GameObject.Find("/Canvas/AliveUI/ImportantUI/MissionPrompt").SendMessage("MissionThree");
+                    GameObject.Find("/Canvas/AliveUI/ImportantUI/GuideHint").SendMessage("MissionOne");
                     //ps.Play();
                     return true;
                 }

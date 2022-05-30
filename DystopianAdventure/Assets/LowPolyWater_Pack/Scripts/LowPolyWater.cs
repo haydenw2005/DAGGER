@@ -7,6 +7,7 @@ namespace LowPolyWater
         public float waveHeight = 0.5f;
         public float waveFrequency = 0.5f;
         public float waveLength = 0.75f;
+        public PlayerMain player;
 
         //Position where the waves originate from
         public Vector3 waveOriginPosition = new Vector3(0.0f, 0.0f, 0.0f);
@@ -24,6 +25,15 @@ namespace LowPolyWater
         void Start()
         {
             CreateMeshLowPoly(meshFilter);
+        }
+
+        void OnTriggerEnter(Collider other)
+        {
+            Debug.Log(other.gameObject.name);
+            if (other.gameObject.name == "FirstPersonPlayer")
+            {
+                player.startCouroutine();
+            }
         }
 
         /// <summary>

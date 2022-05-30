@@ -783,7 +783,7 @@ GameObject:
   - component: {fileID: -7463216192506808205}
   m_Layer: 7
   m_Name: SausageSlice
-  m_TagString: Selectable
+  m_TagString: Meat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
