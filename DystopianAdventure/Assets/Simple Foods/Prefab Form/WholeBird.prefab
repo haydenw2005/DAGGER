@@ -93,6 +93,7 @@ GameObject:
   - component: {fileID: 3392417408907025436}
   - component: {fileID: 7244726538539443439}
   - component: {fileID: 4378924708900229016}
+  - component: {fileID: 7396865158507417460}
   m_Layer: 7
   m_Name: WholeBird
   m_TagString: Selectable
@@ -130,7 +131,7 @@ BoxCollider:
   m_GameObject: {fileID: 963739717108670263}
   m_Material: {fileID: 13400000, guid: 5be77fae3f4c17249b00409f26ab40bf, type: 2}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1.39, y: 0.82, z: 1}
   m_Center: {x: 0, y: 0.04, z: 0}
@@ -163,6 +164,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   referenceItem: {fileID: 11400000, guid: 097b8baf37ce4a94394810a58a1b544d, type: 2}
+--- !u!64 &7396865158507417460
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963739717108670263}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
 --- !u!1 &2526659193860572528
 GameObject:
   m_ObjectHideFlags: 0

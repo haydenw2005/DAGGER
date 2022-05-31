@@ -11,7 +11,10 @@ public class SelectionManager : MonoBehaviour
   public GameObject textMaker;
   private GameObject heldobj;
   public InventorySystem inventory;
-  // Update is called once per frame
+  private bool bikeWasSeen = false;
+  private bool bikeCrystalFound = false;
+  private bool teleCrystalFound = false;
+
 
   void Update()
   {
@@ -20,10 +23,15 @@ public class SelectionManager : MonoBehaviour
     if(Physics.Raycast(playerAxis.transform.position, playerAxis.transform.forward, out select, pickUpRange))
     {
       select.collider.SendMessage("HitByRay", SendMessageOptions.DontRequireReceiver);
-      if(select.collider.tag == "Lunchable" || select.collider.tag == "Food" || select.collider.tag == "Selectable")
+      if(select.collider.tag == "Lunchable" || select.collider.tag == "canPickUp" || select.collider.tag == "Selectable" || select.collider.tag == "Activation"  || select.collider.tag == "Meat")
       {
         textMaker.SendMessage("canPickUp", select.transform.gameObject, SendMessageOptions.DontRequireReceiver);
       }
+      if(select.transform.gameObject.name == "HoverBike" && bikeWasSeen == false) {
+          GameObject.Find("/Canvas/AliveUI/ImportantUI/GuideHint").SendMessage("MissionTwo");
+          bikeWasSeen = true;
+      }
+
     }
 
     if (Input.GetKeyDown("f"))
@@ -31,7 +39,7 @@ public class SelectionManager : MonoBehaviour
       RaycastHit hit;
       if(Physics.Raycast(Camera.main.ViewportPointToRay(new Vector3(0.5F, 0.5F, 0)), out hit, pickUpRange))
       {
-        if(hit.transform.gameObject.tag == "Selectable" && hit.transform.gameObject.TryGetComponent<ItemObject>(out ItemObject item) && inventory.isFull(item) == false)
+        if((hit.transform.gameObject.tag == "Selectable" || hit.transform.gameObject.tag == "Meat") && hit.transform.gameObject.TryGetComponent<ItemObject>(out ItemObject item) && inventory.isFull(item) == false)
         {
           PickupObject(hit.transform.gameObject, item);
           //item.OnHandlePickupItem();
@@ -80,13 +88,20 @@ public class SelectionManager : MonoBehaviour
       objRig.drag = 20;
       objRig.transform.parent = holdParent;
       heldobj = pickobj;
+      if (pickobj.name == "BikeCrystal" && bikeCrystalFound == false) {
+        Debug.Log("ye");
+        GameObject.Find("/Canvas/AliveUI/ImportantUI/GuideHint").SendMessage("MissionThree");
+        bikeCrystalFound = true;
+      } else if (pickobj.name == "TeleCrystal" && teleCrystalFound == false) {
+        Debug.Log("dse");
+        GameObject.Find("/Canvas/AliveUI/ImportantUI/GuideHint").SendMessage("MissionFive");
+        teleCrystalFound = true;
+      }
       StartCoroutine(timedPickup(0.25f, item));
-      //item.OnHandlePickupItem();
-      //heldobj.SetActive(false);
     }
   }
 
-  void DropObject(GameObject objectToDrop)//chnage heldobj to a paramter that determines the object being thrown away
+  void DropObject(GameObject objectToDrop)
   {
     Rigidbody heldRig = objectToDrop.GetComponent<Rigidbody>();
     Collider heldCollide = objectToDrop.GetComponent<Collider>();

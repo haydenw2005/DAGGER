@@ -14,11 +14,11 @@ public class LightCycler : MonoBehaviour
 		transform.LookAt(Vector3.zero);
 		if(this.transform.position.y < 0)
 		{
-			sunlight.enabled = false;
+			sunlight.intensity  = .001f;
 		}
 		else
 		{
-			sunlight.enabled = true;
+			sunlight.intensity = 1f;
 		}
 	}
 }

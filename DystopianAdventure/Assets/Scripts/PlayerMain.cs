@@ -19,15 +19,18 @@ public class PlayerMain : MonoBehaviour
     public int regenWait;
     public int regenHealth;
     public GameObject pauseMenu;
+    public MissionManager missionGuide;
     public CharacterController charController;
     public GameObject player;
     public float radius;
     public InventorySystem inventory;
     public HoverCarControl hoverCar;
+    public Image crosshair;
     public GameObject deathScreen;
     public GameObject aliveUI;
     public TeleportScript teleportPad;
     public Vector3 currentPosition;
+    public RadarScript radar;
 
     void Start()
     {
@@ -70,31 +73,39 @@ public class PlayerMain : MonoBehaviour
                 TakeDamage(8);
                 if (!pauseMenu.activeSelf) {
                     pauseMenu.SetActive(true);
+                    missionGuide.DisableGuide();
+                    crosshair.enabled = false;
                     Time.timeScale = 0;
                 } else {
                     pauseMenu.SetActive(false);
+                    crosshair.enabled = true;
                     Time.timeScale = 1;
                 }
             }
             if (Input.GetKey(KeyCode.E) && inventory.slots[inventory.getCurrentSlot()-1].itemsInSlot.Count >= 1) {
-              inventory.slots[inventory.getCurrentSlot()-1].itemsInSlot[0].TryGetComponent<ItemObject>(out ItemObject item);
+              GameObject currentItem = inventory.slots[inventory.getCurrentSlot()-1].itemsInSlot[0];
+              currentItem.TryGetComponent<ItemObject>(out ItemObject item);
               if (item.referenceItem.id == "InventoryItem_Pork" || item.referenceItem.id == "InventoryItem_Chicken" || item.referenceItem.id == "InventoryItem_Steak" || item.referenceItem.id == "InventoryItem_Lamb") {
                   TakeHunger(-10);
-                  Destroy(inventory.slots[inventory.getCurrentSlot()-1].itemsInSlot[0]);
+                  Destroy(currentItem);
                   InventorySystem.current.Remove();
               } else if (item.referenceItem.id == "InventoryItem_BikeCrystal") {
                   if (hoverCar.switchSeats() == true) {
-                      Destroy(inventory.slots[inventory.getCurrentSlot()-1].itemsInSlot[0]);
-                      GameObject.Find("/Canvas/AliveUI/ImportantUI/MissionPrompt").SendMessage("MissionOne");
+                      Destroy(currentItem);
                       InventorySystem.current.Remove();
                   }
               } else if (item.referenceItem.id == "InventoryItem_TeleportCrystal") {
                   if (teleportPad.turnOnTP() == true) {
-                      Destroy(inventory.slots[inventory.getCurrentSlot()-1].itemsInSlot[0]);
+                      Destroy(currentItem);
                       InventorySystem.current.Remove();
                   }
+              } else if (item.referenceItem.id == "InventoryItem_Tool") {
+                    if (radar.turnOnRadar() == true) {
+                        Destroy(currentItem);
+                        InventorySystem.current.Remove();
+                    }
               }
-            }
+            } 
         }
         if(this.transform.position.x < -101f && this.transform.position.x > -997f && this.transform.position.z < 1998f && this.transform.position.z > 998.7f)
         {
@@ -112,7 +123,7 @@ public class PlayerMain : MonoBehaviour
         }
         if(inventory.slots[inventory.getCurrentSlot()-1].itemsInSlot.Count > 0)
         {
-          GameObject.Find("/Canvas/AliveUI/NotImportantUI/InteractText").SendMessage("currentHeld", inventory.slots[inventory.getCurrentSlot()-1].itemsInSlot[0]);
+          GameObject.Find("/Canvas/AliveUI/ImportantUI/TopText").SendMessage("currentHeld", inventory.slots[inventory.getCurrentSlot()-1].itemsInSlot[0]);
         }
     }
 
@@ -125,7 +136,7 @@ public class PlayerMain : MonoBehaviour
             ticksSinceDamage = 0;
         }
         if(currentHealth <= 0) {
-            playerDeath();
+            StartCoroutine(DeathScreenCoroutine());
         }
     }
 
@@ -193,6 +204,10 @@ public class PlayerMain : MonoBehaviour
         healthBar.SetMaxHealth(maxHealth);
         currentHunger = maxHunger;
         hungerBar.SetMaxHunger(maxHunger);
+    }
+
+    public void startCouroutine() {
+        StartCoroutine(DeathScreenCoroutine());
     }
 
 }

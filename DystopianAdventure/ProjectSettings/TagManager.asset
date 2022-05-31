@@ -9,7 +9,8 @@ TagManager:
   - hoverCar
   - Secondary Camera
   - Lunchable
-  - Food
+  - Meat
+  - Activation
   layers:
   - Default
   - TransparentFX
@@ -19,30 +20,30 @@ TagManager:
   - UI
   - Characters
   - Ground
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
   m_SortingLayers:
   - name: Default
     uniqueID: 0

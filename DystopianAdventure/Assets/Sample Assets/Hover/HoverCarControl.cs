@@ -122,10 +122,12 @@ public class HoverCarControl : MonoBehaviour
       RaycastHit hit;
       if(Physics.Raycast(mainCamAxis.transform.position, mainCamAxis.transform.forward, out hit, pickUpRange))
       {
-        if(hit.transform.gameObject.tag == "Player")
+        if(hit.transform.gameObject.name == "HoverBike")
         {
+          Debug.Log("ye");
           if (hoverCarActivated == false) {
             hoverCarActivated = true;
+            GameObject.Find("/Canvas/AliveUI/ImportantUI/GuideHint").SendMessage("MissionFour");
             return true;
           }
           getInCar();
