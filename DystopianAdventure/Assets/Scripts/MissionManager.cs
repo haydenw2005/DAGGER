@@ -9,7 +9,7 @@ public class MissionManager : MonoBehaviour
   // Start is called before the first frame update
   void Start()
   {
-    txt.text = "You've crash landed onto Earth!";
+    //txt.text = "You've crash landed onto Earth!";
   }
 
   // Update is called once per frame
