@@ -12,6 +12,7 @@ public class LightCycler : MonoBehaviour
 	{
 		transform.RotateAround(Vector3.zero,Vector3.right,rotateSpeed*Time.deltaTime);
 		transform.LookAt(Vector3.zero);
+		//this is to prevent the sun from shining through the gound at night, very annoying
 		if(this.transform.position.y < 0)
 		{
 			sunlight.intensity  = .001f;

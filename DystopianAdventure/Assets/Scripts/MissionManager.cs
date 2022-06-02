@@ -44,6 +44,7 @@ public class MissionManager : MonoBehaviour
     crosshair.enabled = false;
   }
 
+//uses SendMessage system, when a task is completed, a message is sent to this script that advances the UI
   void MissionOne()
   {
     missionTxt.fontSize = 16;

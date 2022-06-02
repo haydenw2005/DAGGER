@@ -105,7 +105,7 @@ public class PlayerMain : MonoBehaviour
                         InventorySystem.current.Remove();
                     }
               }
-            } 
+            }
         }
         if(this.transform.position.x < -101f && this.transform.position.x > -997f && this.transform.position.z < 1998f && this.transform.position.z > 998.7f)
         {
@@ -116,11 +116,14 @@ public class PlayerMain : MonoBehaviour
                 RenderSettings.fog = false;
             }
 
+        //if player is within range of animals, they run away useing SendMessage
         Collider[] hitColliders = Physics.OverlapSphere(this.transform.position, radius);
         foreach (var hitCollider in hitColliders)
         {
           hitCollider.SendMessage("run", SendMessageOptions.DontRequireReceiver);
         }
+
+        //sends current held obj to the text manager displays messages for different held obj
         if(inventory.slots[inventory.getCurrentSlot()-1].itemsInSlot.Count > 0)
         {
           GameObject.Find("/Canvas/AliveUI/ImportantUI/TopText").SendMessage("currentHeld", inventory.slots[inventory.getCurrentSlot()-1].itemsInSlot[0]);

@@ -18,7 +18,7 @@ public class ChickenGod : MonoBehaviour
     public int numSheep;
     public int numCow;
 
-    // Start is called before the first frame update
+    //generates each of the animals randomly between the bounds of the inputted x and z coordinates
     void Start()
     {
       for (int i = 0; i <= numTurkey; i++)

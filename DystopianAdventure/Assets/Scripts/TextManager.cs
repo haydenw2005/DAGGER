@@ -25,9 +25,10 @@ public class TextManager : MonoBehaviour
 
     void Update()
     {
+      //different messages depending on which object you're hovering over
       if(isHovered)
       {
-        if(fSelect)
+        if(clickSelect)
         {
           downTxt.text = "Press F to Pick Up";
           clickSelect = false;
@@ -51,6 +52,7 @@ public class TextManager : MonoBehaviour
       {
         downTxt.text = "";
       }
+      //different messages depending on which obj is being held
       if(heldObj != null)
       {
         if(heldObj.name == "BikeCrystal")
@@ -88,20 +90,16 @@ public class TextManager : MonoBehaviour
 
     void canPickUp(GameObject select)
     {
+      isHovered = true;
       if(select.tag == "Selectable" || select.tag == "Meat")
       {
-        fSelect = true;
+        clickSelect = true;
       }
       else if(select.tag == "Lunchable")
       {
-        fKill = true;
-      }
-      else if(select.tag == "Lunchable") {
-        isHovered = true;
         clickKill = true;
       }
       else if(select.tag == "Activation") {
-        isHovered = true;
         clickActivate = true;
       }
     }

@@ -15,13 +15,14 @@ public class SelectionManager : MonoBehaviour
   private bool bikeCrystalFound = false;
   private bool teleCrystalFound = false;
 
-
+//general structure from https://www.youtube.com/watch?v=GgLREaLUaac
   void Update()
   {
 
     RaycastHit select;
     if(Physics.Raycast(playerAxis.transform.position, playerAxis.transform.forward, out select, pickUpRange))
     {
+      //tells an object they are being hovered over
       select.collider.SendMessage("HitByRay", SendMessageOptions.DontRequireReceiver);
       if(select.collider.tag == "Lunchable" || select.collider.tag == "canPickUp" || select.collider.tag == "Selectable" || select.collider.tag == "Activation"  || select.collider.tag == "Meat")
       {
@@ -42,7 +43,6 @@ public class SelectionManager : MonoBehaviour
         if((hit.transform.gameObject.tag == "Selectable" || hit.transform.gameObject.tag == "Meat") && hit.transform.gameObject.TryGetComponent<ItemObject>(out ItemObject item) && inventory.isFull(item) == false)
         {
           PickupObject(hit.transform.gameObject, item);
-          //item.OnHandlePickupItem();
         }
         else if(hit.transform.gameObject.tag == "Lunchable")
         {

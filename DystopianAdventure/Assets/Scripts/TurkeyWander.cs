@@ -26,6 +26,7 @@ public class TurkeyWander : MonoBehaviour {
         anim.SetBool("IsDead", false);
     }
 
+    //anim works by changing the animation state of the obj which is defined by integers 0-2 to either idel, run, walk or bool die
     void Update() {
       if(!isDead)
       {
@@ -46,6 +47,7 @@ public class TurkeyWander : MonoBehaviour {
             anim.SetInteger("Moving", 1);
             transform.position += -(transform.right) * moveSpeed * Time.deltaTime;
         }
+        //runs if player nearby
         if (danger == true)
         {
           anim.SetInteger("Moving", 2);
@@ -94,6 +96,7 @@ public class TurkeyWander : MonoBehaviour {
       anim.SetBool("IsDead", true);
       yield return new WaitForSeconds(2);
       Destroy(this.gameObject);
+      //kills animal replaces with food
       Instantiate(drumstick, this.transform.position, this.transform.rotation);
     }
 
@@ -113,23 +116,24 @@ public class TurkeyWander : MonoBehaviour {
 
     void OnCollisionEnter(Collision other)
     {
-        if(other.gameObject.name == "River")
+      //makes it so if the animal runs onto water, it is thrown back a good 50 units to prevent it from falling through
+      if(other.gameObject.name == "River")
+      {
+        Debug.Log("Swim");
+        Vector3 teleport = this.transform.position;
+        Debug.Log(teleport);
+        if(teleport.x < -75f)
         {
-          Debug.Log("Swim");
-          Vector3 teleport = this.transform.position;
-          Debug.Log(teleport);
-          if(teleport.x < -75f)
-          {
-            teleport.x += -50.0f;
-          }
-          else
-          {
-            teleport.x += 50.0f;
-          }
-          teleport.y += 15.0f;
-          Debug.Log(teleport);
-          this.transform.position = teleport;
-          teleport = Vector3.zero;
+          teleport.x += -50.0f;
         }
+        else
+        {
+          teleport.x += 50.0f;
+        }
+        teleport.y += 15.0f;
+        Debug.Log(teleport);
+        this.transform.position = teleport;
+        teleport = Vector3.zero;
+      }
     }
 }
