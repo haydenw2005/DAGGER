@@ -19,12 +19,14 @@ public class PlayerMain : MonoBehaviour
     public int regenWait;
     public int regenHealth;
     public GameObject pauseMenu;
+    public GameObject loader;
     public MissionManager missionGuide;
     public CharacterController charController;
     public GameObject player;
     public float radius;
     public InventorySystem inventory;
     public HoverCarControl hoverCar;
+    public Transform hoverCarPos;
     public Image crosshair;
     public GameObject deathScreen;
     public GameObject aliveUI;
@@ -70,8 +72,7 @@ public class PlayerMain : MonoBehaviour
         if(Input.anyKeyDown) {
             if (Input.GetKeyDown("escape"))
             {
-                TakeDamage(8);
-                if (!pauseMenu.activeSelf) {
+                if (!pauseMenu.activeSelf && (!deathScreen.active && !loader.active)) {
                     pauseMenu.SetActive(true);
                     missionGuide.DisableGuide();
                     crosshair.enabled = false;
@@ -107,15 +108,13 @@ public class PlayerMain : MonoBehaviour
               }
             } 
         }
-        if(this.transform.position.x < -129f && this.transform.position.x > -741f
-        && this.transform.position.z < 1780f && this.transform.position.z > 1061f)
+        if(this.transform.position.x < -129f && this.transform.position.z > 1010f)
         {
+            Debug.Log("ye");
             RenderSettings.fog = true;
+        } else {
+            RenderSettings.fog = false;
         }
-        else
-            {
-                RenderSettings.fog = false;
-            }
 
         Collider[] hitColliders = Physics.OverlapSphere(this.transform.position, radius);
         foreach (var hitCollider in hitColliders)
@@ -205,6 +204,7 @@ public class PlayerMain : MonoBehaviour
         healthBar.SetMaxHealth(maxHealth);
         currentHunger = maxHunger;
         hungerBar.SetMaxHunger(maxHunger);
+        hoverCarPos.position = new Vector3(543, 55f, 601f); 
     }
 
     public void startCouroutine() {

@@ -10,6 +10,7 @@ public class SelectionManager : MonoBehaviour
   public Transform holdParent;
   public GameObject textMaker;
   private GameObject heldobj;
+  public GameObject bikeCrystal;
   public InventorySystem inventory;
   private bool bikeWasSeen = false;
   private bool bikeCrystalFound = false;
@@ -28,7 +29,11 @@ public class SelectionManager : MonoBehaviour
         textMaker.SendMessage("canPickUp", select.transform.gameObject, SendMessageOptions.DontRequireReceiver);
       }
       if(select.transform.gameObject.name == "HoverBike" && bikeWasSeen == false) {
+
           GameObject.Find("/Canvas/AliveUI/ImportantUI/GuideHint").SendMessage("MissionTwo");
+          MeshRenderer m = bikeCrystal.GetComponent<MeshRenderer>();
+          m.enabled = true;
+          Rigidbody objRigidBody = bikeCrystal.AddComponent<Rigidbody>();
           bikeWasSeen = true;
       } 
       
@@ -79,8 +84,6 @@ public class SelectionManager : MonoBehaviour
   {
     if (pickobj.GetComponent<Rigidbody>())
     {
-      Debug.Log(pickobj);
-      Debug.Log(item);
       Rigidbody objRig = pickobj.GetComponent<Rigidbody>();
       Collider objCollide = pickobj.GetComponent<Collider>();
       objCollide.enabled = false; 
@@ -89,11 +92,9 @@ public class SelectionManager : MonoBehaviour
       objRig.transform.parent = holdParent;
       heldobj = pickobj;
       if (pickobj.name == "BikeCrystal" && bikeCrystalFound == false) {
-        Debug.Log("ye");
         GameObject.Find("/Canvas/AliveUI/ImportantUI/GuideHint").SendMessage("MissionThree");
         bikeCrystalFound = true;
       } else if (pickobj.name == "TeleCrystal" && teleCrystalFound == false) {
-        Debug.Log("dse");
         GameObject.Find("/Canvas/AliveUI/ImportantUI/GuideHint").SendMessage("MissionFive");
         teleCrystalFound = true;
       }

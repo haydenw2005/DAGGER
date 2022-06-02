@@ -25,7 +25,7 @@ public class HoverCarControl : MonoBehaviour
   public GameObject m_rightAirBrake;
   public Camera firstPersonCamera;
 
-  private bool hoverCarActivated = false;
+  public bool isActivated = false;
 
   int m_layerMask;
 
@@ -101,19 +101,19 @@ public class HoverCarControl : MonoBehaviour
   
 
 
-    if (Input.GetKeyDown(KeyCode.E) && hoverCarActivated == true)
+    if (Input.GetKeyDown(KeyCode.E) && isActivated == true)
     {
       switchSeats();
     }
 
     if(this.transform.position.x < -101f && this.transform.position.x > -997f && this.transform.position.z < 1998f && this.transform.position.z > 998.7f)
-        {
-            RenderSettings.fog = true;
-        }
-        else
-        {
-            RenderSettings.fog = false;
-        }
+    {
+        RenderSettings.fog = true;
+    }
+    else
+    {
+        RenderSettings.fog = false;
+    }
 
   }
   
@@ -124,9 +124,8 @@ public class HoverCarControl : MonoBehaviour
       {
         if(hit.transform.gameObject.name == "HoverBike")
         {
-          Debug.Log("ye");
-          if (hoverCarActivated == false) {
-            hoverCarActivated = true;
+          if (isActivated == false) {
+            isActivated = true;
             GameObject.Find("/Canvas/AliveUI/ImportantUI/GuideHint").SendMessage("MissionFour");
             return true;
           }
