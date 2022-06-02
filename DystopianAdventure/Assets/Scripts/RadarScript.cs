@@ -4,17 +4,11 @@ using UnityEngine;
 
 public class RadarScript : MonoBehaviour
 {
-    private bool isActivated = false;
+    public bool isActivated = false;
     public Transform mainCamAxis;
     public float pickUpRange = 10;
     public Light radarLight;
-
-    void Start()
-    {
-        //ps = GetComponent<ParticleSystem>();
-        //ps.Stop();
-
-    }
+    public GameObject radarBody;
 
     public bool turnOnRadar() {
         if (isActivated == false && Input.GetKey(KeyCode.E)) {
@@ -26,7 +20,7 @@ public class RadarScript : MonoBehaviour
                 {
                     isActivated = true;
                     Debug.Log("Activated");
-                    GetComponent<Animator>().enabled = true;
+                    radarBody.GetComponent<Animator>().enabled = true;
                     radarLight.color = Color.green;
                     GameObject.Find("/Canvas/AliveUI/ImportantUI/GuideHint").SendMessage("MissionOne");
                     //ps.Play();

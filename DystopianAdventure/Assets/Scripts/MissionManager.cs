@@ -11,6 +11,7 @@ public class MissionManager : MonoBehaviour
   public GameObject border;
   public Image crosshair;
   public GameObject message;
+  public GameObject pauseMenu;
   private bool isActive = false;
   // Start is called before the first frame update
   void Start()
@@ -23,7 +24,7 @@ public class MissionManager : MonoBehaviour
     if(Input.GetKeyDown(KeyCode.Tab)) {
       if(isActive) {
         DisableGuide();
-      } else {
+      } else if(pauseMenu.active == false) { //if not open
         EnableGuide();
       }
     }
@@ -71,14 +72,14 @@ public class MissionManager : MonoBehaviour
   {
     missionTxt.fontSize = 18;
     message.SetActive(true);
-    missionTxt.text = "The bike is now running smoothly, so we can move on to the next step of our plan. Across the river there is teleporter that can take you home. In order to power it, you will need a shard of Telenium which lays in a cave. This cave can be found southwest from the original location of the bike.";
+    missionTxt.text = "The bike is now running smoothly, so we can move on to the next step of our plan. Across the river there is teleporter that can take you home. In order to power it, you will need a shard of Telenium which lays in a cave. This cave can be found southwest from the original location of the bike, deep within a forest...";
   }
 
   void MissionFive()
   {
     missionTxt.fontSize = 19;
     message.SetActive(true);
-    missionTxt.text = "Now that you have the crystal, you are ready to go home. Energy signals from the teleporter are off the charts, so be careful. It appears that the last time it was used it caused massive destruction. The teleporter can be found east from the telenium cave";
+    missionTxt.text = "Now that you have the crystal, you are ready to go home. Energy signals from the teleporter are off the charts, so be careful. It appears that the last time it was used it caused massive destruction. The teleporter can be found east from the telenium cave.";
   }
   void MissionSix()
   {

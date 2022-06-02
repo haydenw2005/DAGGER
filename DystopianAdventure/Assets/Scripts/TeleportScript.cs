@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class TeleportScript : MonoBehaviour
 {
-    private bool isActivated = false;
+    public bool isActivated = false;
     private ParticleSystem ps;
     public Transform mainCamAxis;
     public float pickUpRange = 17;
