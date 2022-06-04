@@ -53,6 +53,7 @@ public class audioManagerScript : MonoBehaviour
             }
             else 
             {
+                //  check if it's day or night and play the corresponding track               
                 checkDay();
             }
         }
@@ -70,6 +71,7 @@ public class audioManagerScript : MonoBehaviour
                 }  
             }
             else {
+            //  check if it's day or night and play the corresponding track     
                 checkDay();
             }
         }
@@ -82,6 +84,7 @@ public class audioManagerScript : MonoBehaviour
     }
 
     public void checkDay() {
+        //  check if it's day or night and play the corresponding track     
         if(inDarkForest) {
             inDarkForest = false;
             if(sun.transform.position.y > 0) {
