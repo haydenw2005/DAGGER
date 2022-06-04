@@ -175,7 +175,7 @@ public class PlayerMain : MonoBehaviour
     {
         if(other.gameObject.name == "River")
         {
-            //Start the coroutine we define below named TimeCoroutine.
+            //When player jumps in the river we start call a function that does all the necessary things that need to be done when the player dies
             StartCoroutine(DeathScreenCoroutine());
         }
     }
@@ -199,18 +199,20 @@ public class PlayerMain : MonoBehaviour
     }
 
     private void playerDeath() {
-        //Death Animation
+        //teleport player back to spawn
         Vector3 teleport = new Vector3(573, 55f, 601f);
         player.transform.position = teleport;
         teleport = Vector3.zero;
+        //set hunger and health to max
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
         currentHunger = maxHunger;
         hungerBar.SetMaxHunger(maxHunger);
+        //teleport hovercar back to spawn
         hoverCarPos.position = new Vector3(543, 55f, 601f);
     }
 
-    public void startCouroutine() {
+    public void startCouroutine() {    
         StartCoroutine(DeathScreenCoroutine());
     }
 
